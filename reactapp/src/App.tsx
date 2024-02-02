@@ -5,6 +5,7 @@ import ProfilePage from "./components/pages/ProfilePage";
 import ScamPage from "./components/pages/ScamPage";
 import Header from "./components/blocks/Header";
 import SearchIcon from "../src/assets/icons/search-form__icon.svg";
+import React from "react";
 
 export default function App() {
   return (
