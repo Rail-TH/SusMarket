@@ -1,0 +1,80 @@
+$background-color: #252422;
+$main-color: #CCC5B9;
+$accent-color: #EB5E28;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+body {
+    background-color: $background-color;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 40px 0px 40px;
+    background-color: $background-color;
+
+    .header__title {
+        color: white;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .catalog-button {
+        width: 150px;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 5px 0px 5px;
+        border-radius: 10px;
+        background-color: $main-color;
+        color: black;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .search-form {
+        width: 60%;
+        
+        .search-form__field {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 20px 0px 20px;
+            box-sizing: border-box;
+            border: 2px solid $main-color;
+            border-radius: 10px;
+    
+            .search-form__input {
+                width: 100%;
+                color: white;
+                font-family: Montserrat;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 20px;
+                letter-spacing: 0%;
+                text-align: left;
+            }
+    
+            .search-form__input::-webkit-input-placeholder {
+                color: $main-color
+            }
+        }
+    }
+}

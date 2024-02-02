@@ -74,6 +74,13 @@ button:focus, button:active {
     outline: none;
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
 button::-moz-focus-inner {
 	padding: 0;
 	border: 0;
