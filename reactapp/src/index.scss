@@ -76,13 +76,20 @@ body {
     padding: 0px 40px 0px 40px;
     background-color: $background-color;
 
-    .header__title {
-        color: white;
+    .header__title-h1 {
         font-size: 24px;
         font-weight: 600;
         line-height: 29px;
         letter-spacing: 0%;
         text-align: left;
+
+        .title-h1__a {
+            color: white;
+            
+            .header__logo-img {
+                width: 30px;
+            }
+        }
     }
 
     .catalog-button {

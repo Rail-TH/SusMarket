@@ -1,16 +1,17 @@
 import React from "react";
-import ProductCard from "../blocks/ProductCard";
-import Banner from "../blocks/AddBanner";
-import Image1 from "../../assets/img/product-image-1.webp";
-import Image2 from "../../assets/img/product-image-2.webp";
-import Image3 from "../../assets/img/product-image-3.webp";
-import Image4 from "../../assets/img/product-image-4.webp";
-import Image5 from "../../assets/img/product-image-5.webp";
-import Image6 from "../../assets/img/product-image-6.webp";
-import Image7 from "../../assets/img/product-image-7.webp";
-import Image8 from "../../assets/img/product-image-8.webp";
-import Image9 from "../../assets/img/product-image-9.webp";
-import Image10 from "../../assets/img/product-image-10.webp";
+import '../HomeStyle.scss'
+import ProductCard from "../components/ProductCard";
+import Banner from "../components/AddBanner";
+import Image1 from "../assets/img/product-image-1.webp";
+import Image2 from "../assets/img/product-image-2.webp";
+import Image3 from "../assets/img/product-image-3.webp";
+import Image4 from "../assets/img/product-image-4.webp";
+import Image5 from "../assets/img/product-image-5.webp";
+import Image6 from "../assets/img/product-image-6.webp";
+import Image7 from "../assets/img/product-image-7.webp";
+import Image8 from "../assets/img/product-image-8.webp";
+import Image9 from "../assets/img/product-image-9.webp";
+import Image10 from "../assets/img/product-image-10.webp";
 
 export default function HomePage() {
     return(

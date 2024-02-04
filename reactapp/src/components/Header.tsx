@@ -1,10 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import Logotype from "../assets/img/amongasik.png";
 
 export default function Header(SearchIcon:any) {
     return(
         <header className="header">
-            <h1 className="header__title">SuSMarket</h1>
+            <h1 className="header__title-h1">
+                <Link to="/" className="title-h1__a">
+                    <img className="header__logo-img" src={Logotype} alt="Dead amongus" />
+                    <span>SuSMarket</span>
+                </Link>
+            </h1>
             <motion.button 
                 className="catalog-button"
                 whileTap={{scale: 0.95}}
@@ -31,14 +38,15 @@ export default function Header(SearchIcon:any) {
                     {/* Код для svg */}
                 </div>
             </form>
-            <motion.a 
-                href="/" 
+            <Link 
+                to="/profile" 
                 className="header__profile-a"
-                whileTap={{scale: 0.9}}
-                transition={{duration: 0.2, type: "spring"}}
             >
                 {/* Код для svg */}
-                <svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none">
+                <motion.svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none"
+                    whileTap={{scale: 0.9}}
+                    transition={{duration: 0.2, type: "spring"}}
+                >
                     <desc>
                             Created with Pixso.
                     </desc>
@@ -51,9 +59,9 @@ export default function Header(SearchIcon:any) {
                     <g clipPath="url(#clip3_40)">
                         <path id="Vector" d="M24 23.95C21.8 23.95 20 23.25 18.6 21.85C17.2 20.45 16.5 18.6499 16.5 16.45C16.5 14.25 17.2 12.45 18.6 11.0499C20 9.6499 21.8 8.94995 24 8.94995C26.2 8.94995 28 9.6499 29.4 11.0499C30.8 12.45 31.5 14.25 31.5 16.45C31.5 18.6499 30.8 20.45 29.4 21.85C28 23.25 26.2 23.95 24 23.95ZM8 37L8 35.2999C8 34.0333 8.31665 32.95 8.94995 32.0499C9.58337 31.1499 10.4 30.4667 11.4 30C13.6333 29 15.775 28.25 17.825 27.75C19.875 27.25 21.9333 27 24 27C26.0667 27 28.1167 27.2583 30.15 27.7749C32.1833 28.2916 34.3153 29.0365 36.546 30.0096C37.5894 30.4805 38.4259 31.1633 39.0555 32.058C39.6852 32.9526 40 34.0333 40 35.2999L40 37C40 37.825 39.7063 38.5312 39.1188 39.1187C38.5312 39.7062 37.825 40 37 40L11 40C10.175 40 9.46875 39.7062 8.88123 39.1187C8.2937 38.5312 8 37.825 8 37ZM11 37L37 37L37 35.2999C37 34.7666 36.8417 34.2583 36.525 33.7749C36.2084 33.2916 35.8167 32.9332 35.35 32.7C33.2167 31.6666 31.2667 30.9583 29.5 30.575C27.7333 30.1917 25.9 30 24 30C22.1 30 20.25 30.1917 18.45 30.575C16.65 30.9583 14.7 31.6666 12.6 32.7C12.1333 32.9332 11.75 33.2916 11.45 33.7749C11.15 34.2583 11 34.7666 11 35.2999L11 37ZM24 20.95C25.3 20.95 26.375 20.5249 27.225 19.6749C28.075 18.825 28.5 17.75 28.5 16.45C28.5 15.1499 28.075 14.075 27.225 13.225C26.375 12.375 25.3 11.95 24 11.95C22.7 11.95 21.625 12.375 20.775 13.225C19.925 14.075 19.5 15.1499 19.5 16.45C19.5 17.75 19.925 18.825 20.775 19.6749C21.625 20.5249 22.7 20.95 24 20.95Z" fill="#CCC5B9" fillOpacity="1.000000" fillRule="nonzero"/>
                     </g>
-                </svg>
+                </motion.svg>
                 {/* Код для svg */}
-            </motion.a>
+            </Link>
             <motion.button
                 className="header__popupmap-button"
                 whileTap={{scale: 0.9}}
