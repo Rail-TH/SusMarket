@@ -24,7 +24,7 @@ export default function HomePage() {
                 <ProductCard ProductName="Мороженое" ProductImg={Image4} Price={150} />
                 <ProductCard ProductName="Фигурка" ProductImg={Image5} Price={1799} />
                 <ProductCard ProductName="Трансформер" ProductImg={Image6} Price={19999} />
-                <ProductCard ProductName="Старая игрушка Баз-Лайтер" ProductImg={Image7} Price={99999999999} />
+                <ProductCard ProductName="Старая игрушка Баз-Лайтер" ProductImg={Image7} Price={2564235634563456} />
                 <ProductCard ProductName="Одёжка" ProductImg={Image8} Price={756} />
                 <ProductCard ProductName="Книга про ботанику" ProductImg={Image9} Price={2345} />
                 <ProductCard ProductName="Книга белая" ProductImg={Image10} Price={150} />

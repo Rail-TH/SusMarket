@@ -1,7 +1,7 @@
 $background-color: #252422;
 $main-color: #CCC5B9;
 $accent-color: #EB5E28;
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
 body {
     background-color: $background-color;
@@ -30,8 +30,18 @@ body {
         font-size: 32px;
         font-weight: 600;
         line-height: 39px;
-        letter-spacing: 0%;
+        height: 50px;
         text-align: left;
+        display: inline-block;
+
+        span {
+            max-width: 186px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
     }
 
     .product-article__name-h6 {
