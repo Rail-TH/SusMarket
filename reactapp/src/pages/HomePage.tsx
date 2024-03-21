@@ -1,7 +1,7 @@
 import React from "react";
 import '../HomeStyle.scss'
 import ProductCard from "../components/ProductCard";
-import Banner from "../components/AddBanner";
+import Banner from "../components/AdBanner";
 import Image1 from "../assets/img/product-image-1.webp";
 import Image2 from "../assets/img/product-image-2.webp";
 import Image3 from "../assets/img/product-image-3.webp";

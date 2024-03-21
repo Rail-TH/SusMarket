@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "../components/AddBanner";
+import Banner from "../components/AdBanner";
 import '../ProfileStyle.scss';
 import { Route, Routes } from "react-router-dom";
 import ProfileOrders from "../components/ProfileOrders";

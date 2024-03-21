@@ -4,14 +4,30 @@ import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
 import ScamPage from "./pages/ScamPage";
 import Header from "./components/Header";
-import SearchIcon from "../src/assets/icons/search-form__icon.svg";
-import React from "react";
+import PopupMap from "./components/PopupMap";
+import React, { useState } from "react";
 import { Routes, Route } from 'react-router-dom'
 
+interface AppPopupMapState {
+  isPopupMapVisible: boolean;
+}
+
 export default function App() {
+  const [state, setState] = useState<AppPopupMapState>({
+    isPopupMapVisible: false,
+  });
+
+  const togglePopupMap = () => {
+    setState((prevState) => ({
+      ...prevState,
+      isPopupMapVisible: !prevState.isPopupMapVisible,
+    }));
+  };
+  
   return (
     <>
-      <Header SearchIcon={SearchIcon}/>
+      <Header togglePopupMap={togglePopupMap}/>
+      {state.isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap}/>}
       <main className="main">
         <Routes>
           <Route path="/" element={<HomePage />}/>
