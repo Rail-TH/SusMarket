@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import Review from '../components/Review';
 import '../ProductStyle.scss';
 import ProductImage from "../assets/img/product-image-1.webp";
 import ShareIcon from "../assets/icons/share-icon.svg";
 
-export default function ProductPage() {
+interface StarRatingProps {
+    value: number;
+}
+
+export default function ProductPage({ value }: StarRatingProps) {
     const [selectedRating, setSelectedRating] = useState(1);
 
     const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,6 +121,74 @@ export default function ProductPage() {
                 <h3 className="product-page__block-heading">
                     Отзывы
                 </h3>
+                <div className='reviews-section__rate-block'>
+                    <div className='rate-block__rating'>
+                        <span className='rate-block__rate-number'>
+                            {value}
+                        </span>
+                        <div className="rate-block__star-rating">
+                            <div className="star-rating__back-stars">
+                                {'★★★★★'.split('').map((star, i) => (
+                                <span key={`back-star-${i}`}>{star}</span>
+                                ))}
+                                <div className="star-rating__front-stars" style={{ width: `${(value / 5) * 100}%` }}>
+                                {'★★★★★'.split('').map((star, i) => (
+                                    <span key={`front-star-${i}`}>{star}</span>
+                                ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='rate-block__progressbars-group'>
+                        <div className='progressbars-group__progressbar-container'>
+                            <span className='rate-progressbar__rate-number'>
+                                5
+                            </span>
+                            <div className='progressbar-container__progressbar'>
+                                <div className='progressbar__active-line'></div>
+                            </div>
+                        </div>
+                        <div className='progressbars-group__progressbar-container'>
+                            <span className='rate-progressbar__rate-number'>
+                                4
+                            </span>
+                            <div className='progressbar-container__progressbar'>
+                                <div className='progressbar__active-line'></div>
+                            </div>
+                        </div>
+                        <div className='progressbars-group__progressbar-container'>
+                            <span className='rate-progressbar__rate-number'>
+                                3
+                            </span>
+                            <div className='progressbar-container__progressbar'>
+                                <div className='progressbar__active-line'></div>
+                            </div>
+                        </div>
+                        <div className='progressbars-group__progressbar-container'>
+                            <span className='rate-progressbar__rate-number'>
+                                2
+                            </span>
+                            <div className='progressbar-container__progressbar'>
+                                <div className='progressbar__active-line'></div>
+                            </div>
+                        </div>
+                        <div className='progressbars-group__progressbar-container'>
+                            <span className='rate-progressbar__rate-number'>
+                                1
+                            </span>
+                            <div className='progressbar-container__progressbar'>
+                                <div className='progressbar__active-line'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='product-page__reviews-container'>
+                    <Review />
+                    <Review />
+                    <Review />
+                    <Review />
+                    <Review />
+                </div>
             </section>
         </section>
     )
