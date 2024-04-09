@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Review from '../components/Review';
 import '../ProductStyle.scss';
 import ProductImage from "../assets/img/product-image-1.webp";
 import ShareIcon from "../assets/icons/share-icon.svg";
+import ReviewForm from '../components/ReviewForm';
 
 interface StarRatingProps {
     value: number;
 }
 
 export default function ProductPage({ value }: StarRatingProps) {
-    const [selectedRating, setSelectedRating] = useState(1);
-
-    const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedRating(Number(event.target.value));
-    };
-    
     return(
         <section className="product-page">
             <section className="product-page__main-section">
@@ -32,54 +27,6 @@ export default function ProductPage({ value }: StarRatingProps) {
                     </span>
                     <div className="product-page__container-div">
                         <div className="product-page__rating-share-div">
-                            <div className="product-page__rating-div">
-                                <div className="rating-div__stars-container">
-                                    <input 
-                                        type="radio" 
-                                        className="rating-div__star-radio" 
-                                        name="rating" value={1} 
-                                        aria-label="Плохо" 
-                                        checked={selectedRating === 1} 
-                                        onChange={handleRatingChange}
-                                    />
-                                    <input 
-                                        type="radio" 
-                                        className="rating-div__star-radio" 
-                                        name="rating" value={2} 
-                                        aria-label="Удовлетворительно" 
-                                        checked={selectedRating === 2} 
-                                        onChange={handleRatingChange}
-                                    />
-                                    <input 
-                                        type="radio" 
-                                        className="rating-div__star-radio" 
-                                        name="rating" value={3} 
-                                        aria-label="Нормально" checked={selectedRating === 3} 
-                                        onChange={handleRatingChange}
-                                    />
-                                    <input 
-                                        type="radio" 
-                                        className="rating-div__star-radio" 
-                                        name="rating" 
-                                        value={4} 
-                                        aria-label="Хорошо" 
-                                        checked={selectedRating === 4} 
-                                        onChange={handleRatingChange}
-                                    />
-                                    <input 
-                                        type="radio" 
-                                        className="rating-div__star-radio" 
-                                        name="rating" 
-                                        value={5} 
-                                        aria-label="Отлично" 
-                                        checked={selectedRating === 5} 
-                                        onChange={handleRatingChange}
-                                    />
-                                </div>
-                                <span className="rating-div__rate-value">
-                                    {selectedRating}
-                                </span>
-                            </div>
                             <button className="product-page__share-button">
                                 <img src={ShareIcon as unknown as string} alt="" />
                             </button>
@@ -182,11 +129,8 @@ export default function ProductPage({ value }: StarRatingProps) {
                         </div>
                     </div>
                 </div>
+                <ReviewForm />
                 <div className='product-page__reviews-container'>
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
                     <Review />
                 </div>
             </section>

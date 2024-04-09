@@ -77,62 +77,12 @@ $accent-color: #EB5E28;
                         border: 2px solid $main-color;
                         border-radius: 12px;
 
-                        .rating-div__stars-container {
-                            position: relative;
-                            width: 150px;
-                            height: 30px;
-                            background-image: url(assets/icons/rating__star-icon.svg);
-                            background-size: 30px auto;
-                            background-repeat: repeat-x;
-
-                            .rating-div__star-radio {
-                                appearance: none;
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                height: 30px;
-                            }
-
-                            .rating-div__star-radio:checked, .rating-div__star-radio:hover {
-                                background-image: url(assets/icons/rating__filled-star-icon.svg);
-                                background-size: 30px auto;
-                                background-repeat: repeat-x;
-                            }
-
-                            .rating-div__star-radio:hover ~ .rating-div__star-radio {
-                                background-image: url(assets/icons/rating__star-icon.svg);
-                                background-size: 30px auto;
-                                background-repeat: repeat-x;
-                            }
-
-                            .rating-div__star-radio:nth-of-type(1) {
-                                z-index: 5;
-                                width: 30px;
-                            }
-                            .rating-div__star-radio:nth-of-type(2) {
-                                z-index: 4;
-                                width: 60px;
-                            }
-                            .rating-div__star-radio:nth-of-type(3) {
-                                z-index: 3;
-                                width: 90px;
-                            }
-                            .rating-div__star-radio:nth-of-type(4) {
-                                z-index: 2;
-                                width: 120px;
-                            }
-                            .rating-div__star-radio:nth-of-type(5) {
-                                z-index: 1;
-                                width: 150px;
-                            }
-                        }
-
                         .rating-div__rate-value {
                             color: white;
                             font-size: 24px;
                             font-weight: 400;
                             line-height: 29px;
-                            letter-spacing: 0%;
+                            letter-spacing: 0px;
                             text-align: left;
                         }
                     }
@@ -196,7 +146,7 @@ $accent-color: #EB5E28;
             font-size: 20px;
             font-weight: 400;
             line-height: 24px;
-            letter-spacing: 0%;
+            letter-spacing: 0px;
             text-align: left;
         }
 
@@ -215,7 +165,7 @@ $accent-color: #EB5E28;
                 font-size: 24px;
                 font-weight: 600;
                 line-height: 29px;
-                letter-spacing: 0%;
+                letter-spacing: 0px;
                 text-align: left;
             }
         }
@@ -232,16 +182,18 @@ $accent-color: #EB5E28;
             gap: 20px;
             margin-top: 48px;
             width: 310px;
+            
             .rate-block__rating {
                 display: flex;
                 align-items: center;
                 gap: 20px;
+                
                 .rate-block__rate-number {
                     color: white;
                     font-size: 36px;
                     font-weight: 600;
                     line-height: 44px;
-                    letter-spacing: 0%;
+                    letter-spacing: 0px;
                     text-align: left;
                 }
     
@@ -291,7 +243,7 @@ $accent-color: #EB5E28;
                 font-size: 20px;
                 font-weight: 400;
                 line-height: 24px;
-                letter-spacing: 0%;
+                letter-spacing: 0px;
                 text-align: left;
 
                 .progressbars-group__progressbar-container {
@@ -324,10 +276,107 @@ $accent-color: #EB5E28;
             }
         }
 
+        .product-page__review-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 48px;
+            gap: 20px;
+
+            .review-form__heading {
+                color: white;
+                font-size: 26px;
+                font-weight: 500;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+
+            .review-form__stars-container {
+                position: relative;
+                width: 150px;
+                height: 30px;
+                background-image: url(assets/icons/rating__star-icon.svg);
+                background-size: 30px auto;
+                background-repeat: repeat-x;
+
+                .review-form__star-radio {
+                    appearance: none;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 30px;
+                }
+
+                .review-form__star-radio:checked, .review-form__star-radio:hover {
+                    background-image: url(assets/icons/rating__filled-star-icon.svg);
+                    background-size: 30px auto;
+                    background-repeat: repeat-x;
+                }
+
+                .review-form__star-radio:hover ~ .review-form__star-radio {
+                    background-image: url(assets/icons/rating__star-icon.svg);
+                    background-size: 30px auto;
+                    background-repeat: repeat-x;
+                }
+
+                .review-form__star-radio:nth-of-type(1) {
+                    z-index: 5;
+                    width: 30px;
+                }
+                .review-form__star-radio:nth-of-type(2) {
+                    z-index: 4;
+                    width: 60px;
+                }
+                .review-form__star-radio:nth-of-type(3) {
+                    z-index: 3;
+                    width: 90px;
+                }
+                .review-form__star-radio:nth-of-type(4) {
+                    z-index: 2;
+                    width: 120px;
+                }
+                .review-form__star-radio:nth-of-type(5) {
+                    z-index: 1;
+                    width: 150px;
+                }
+            }
+
+            .review-form__textarea {
+                width: 100%;
+                border: 2px solid $main-color;
+                border-radius: 15px;
+                color: white;
+                padding: 10px;
+                font-size: 24px;
+            }
+
+            .review-form__image-attach {
+                width: 34px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .review-form__image-input {
+                display: none;
+            }
+
+            .review-form__send-button {
+                padding: 20px;
+                border-radius: 15px;
+                background-color: $accent-color;
+                font-size: 20px;
+                color: white;
+                font-weight: 500;
+                letter-spacing: 0px;
+            }
+        }
+
         .product-page__reviews-container {
             display: flex;
             flex-direction: column;
             margin-top: 50px;
+            margin-bottom: 30px;
             gap: 50px;
         }
     }
@@ -337,7 +386,7 @@ $accent-color: #EB5E28;
         font-size: 32px;
         font-weight: 500;
         line-height: 39px;
-        letter-spacing: 0%;
+        letter-spacing: 0px;
         text-align: left;
     }
 }

@@ -13,9 +13,44 @@ export default function Review() {
                         Святослав Васильев
                     </h4>
                 </div>
-                <div className="review-container__review-info">=
+                <div className="review-container__review-info">
                     <div className="review-info__star-rate">
-                        
+                        <input 
+                            type="radio" 
+                            className="star-rate__star-radio" 
+                            name="review-rating" 
+                            value={1} 
+                            aria-label="Плохо" 
+                        />
+                        <input 
+                            type="radio" 
+                            className="star-rate__star-radio" 
+                            name="review-rating" 
+                            value={2} 
+                            aria-label="Удовлетворительно" 
+                        />
+                        <input 
+                            type="radio" 
+                            className="star-rate__star-radio" 
+                            name="review-rating" 
+                            value={3} 
+                            aria-label="Нормально" 
+                        />
+                        <input 
+                            type="radio" 
+                            className="star-rate__star-radio" 
+                            name="review-rating" 
+                            value={4} 
+                            aria-label="Хорошо" 
+                        />
+                        <input 
+                            type="radio" 
+                            className="star-rate__star-radio" 
+                            name="review-rating" 
+                            value={5} 
+                            aria-label="Отлично" 
+                            checked
+                        />
                     </div>
                     <time className="review-info__review-date" dateTime="2019-09-09">
                         09.09.2019

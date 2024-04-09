@@ -340,7 +340,7 @@ body {
                 font-size: 24px;
                 font-weight: 600;
                 line-height: 29px;
-                letter-spacing: 0%;
+                letter-spacing: 0px;
                 text-align: left;
             }
         }
@@ -352,7 +352,53 @@ body {
             width: 100%;
 
             .review-info__star-rate {
-                display: flex;
+                position: relative;
+                width: 150px;
+                height: 30px;
+                background-image: url(assets/icons/rating__star-icon.svg);
+                background-size: 30px auto;
+                background-repeat: repeat-x;
+
+                .star-rate__star-radio {
+                    appearance: none;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 30px;
+                }
+
+                .star-rate__star-radio:checked, .rating-div__star-radio:hover {
+                    background-image: url(assets/icons/rating__filled-star-icon.svg);
+                    background-size: 30px auto;
+                    background-repeat: repeat-x;
+                }
+
+                .star-rate__star-radio:hover ~ .rating-div__star-radio {
+                    background-image: url(assets/icons/rating__star-icon.svg);
+                    background-size: 30px auto;
+                    background-repeat: repeat-x;
+                }
+
+                .star-rate__star-radio:nth-of-type(1) {
+                    z-index: 5;
+                    width: 30px;
+                }
+                .star-rate__star-radio:nth-of-type(2) {
+                    z-index: 4;
+                    width: 60px;
+                }
+                .star-rate__star-radio:nth-of-type(3) {
+                    z-index: 3;
+                    width: 90px;
+                }
+                .star-rate__star-radio:nth-of-type(4) {
+                    z-index: 2;
+                    width: 120px;
+                }
+                .star-rate__star-radio:nth-of-type(5) {
+                    z-index: 1;
+                    width: 150px;
+                }
             }
 
             .review-info__review-date {
@@ -360,7 +406,7 @@ body {
                 font-size: 24px;
                 font-weight: 500;
                 line-height: 29px;
-                letter-spacing: 0%;
+                letter-spacing: 0px;
                 text-align: left;
             }
         }
@@ -371,12 +417,127 @@ body {
         font-size: 24px;
         font-weight: 400;
         line-height: 29px;
-        letter-spacing: 0%;
+        letter-spacing: 0px;
         text-align: left;
     }
 
     .review-article__product-image {
         max-width: 300px;
         border-radius: 10px;
+    }
+}
+
+.popup-login {
+    width: 450px;
+    display: flex;
+    position: fixed;
+    left: 50%;
+    top: 108px;
+    transform:translateX(-50%);
+    flex-direction: column;
+    gap: 40px;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    background: $background-color;
+
+    .popup-login__top-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .popup-login__close-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
+            background: rgb(53, 52, 49);
+        }
+
+        .top-container__headings-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .popup-menu__heading {
+                color: white;
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 29px;
+                letter-spacing: 0px;
+                text-align: left;
+                
+                span {
+                    color: $accent-color;
+                }
+            }
+
+            .top-container__text {
+                color: $main-color;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 20px;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+        }
+    }
+
+    .popup-login__inputs-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        
+        .popup-login__name-input, .popup-login__password-input {
+            display: flex;
+            width: 100%;
+            height: 70px;
+            align-items: center;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            border: 2px solid $main-color;
+            border-radius: 15px;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+    }
+
+    .popup-login__bottom-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .popup-menu__prompt-url {
+            color: $main-color;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+            letter-spacing: 0px;
+            text-align: left;
+        }
+
+        .popup-login__login-button {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background: rgb(235, 94, 40);
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+            letter-spacing: 0%;
+            text-align: left;
+        }
     }
 }

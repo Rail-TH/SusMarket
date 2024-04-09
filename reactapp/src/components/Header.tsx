@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Logotype from "../assets/img/amongasik.png";
 import CatalogMenu from "./CatalogMenu";
+import LoginMenu from "./LoginMenu";
 
 interface HeaderProps {
     togglePopupMap: () => void;
@@ -12,15 +13,30 @@ interface HeaderCatalogMenuState {
     isCatalogMenuVisible: boolean;
 }
 
+interface HeaderLoginMenuState {
+    isLoginMenuVisible: boolean;
+}
+
 export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
-    const [state, setState] = useState<HeaderCatalogMenuState>({
+    const [stateCatalog, setStateCatalog] = useState<HeaderCatalogMenuState>({
         isCatalogMenuVisible: false,
     });
 
+    const [stateLogin, setStateLogin] = useState<HeaderLoginMenuState>({
+        isLoginMenuVisible: false,
+    });
+
     const toggleCatalogMenu = () => {
-        setState((prevState) => ({
+        setStateCatalog((prevState) => ({
             ...prevState,
             isCatalogMenuVisible: !prevState.isCatalogMenuVisible,
+        }));
+    };
+
+    const toggleLoginMenu = () => {
+        setStateLogin((prevState) => ({
+            ...prevState,
+            isLoginMenuVisible: !prevState.isLoginMenuVisible,
         }));
     };
     
@@ -60,18 +76,17 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                         {/* Код для svg */}
                     </div>
                 </form>
-                <Link 
-                    to="/profile" 
+                <motion.button 
                     className="header__profile-a"
+                    whileTap={{scale: 0.9}}
+                    transition={{duration: 0.2, type: "spring"}}
+                    onClick={toggleLoginMenu}
                 >
                     {/* Код для svg */}
                     <motion.svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none"
                         whileTap={{scale: 0.9}}
                         transition={{duration: 0.2, type: "spring"}}
                     >
-                        <desc>
-                                Created with Pixso.
-                        </desc>
                         <defs>
                             <clipPath id="clip3_40">
                                 <rect id="person_FILL0_wght400_GRAD0_opsz48 1" width="48.000000" height="48.000000" fill="white" fillOpacity="0"/>
@@ -83,7 +98,7 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                         </g>
                     </motion.svg>
                     {/* Код для svg */}
-                </Link>
+                </motion.button>
                 <motion.button
                     className="header__popupmap-button"
                     whileTap={{scale: 0.9}}
@@ -92,9 +107,6 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                 >
                     {/* Код для svg */}
                     <svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none">
-                        <desc>
-                                Created with Pixso.
-                        </desc>
                         <defs>
                             <clipPath id="clip3_51">
                                 <rect id="location_on_FILL0_wght400_GRAD0_opsz48 1" width="48.000000" height="48.000000" fill="white" fillOpacity="0"/>
@@ -115,9 +127,6 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                 >
                     {/* Код для svg */}
                         <svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none">
-                            <desc>
-                                    Created with Pixso.
-                            </desc>
                             <defs>
                                 <clipPath id="clip6_70">
                                     <rect id="info_FILL0_wght400_GRAD0_opsz48 1" width="48.000000" height="48.000000" fill="white" fillOpacity="0"/>
@@ -131,7 +140,8 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                     {/* Код для svg */}
                 </motion.a>
             </nav>
-            {state.isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu}/>}
+            {stateCatalog.isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu}/>}
+            {stateLogin.isLoginMenuVisible && <LoginMenu toggleLoginMenu={toggleLoginMenu}/>}
         </header>
     )
 }
