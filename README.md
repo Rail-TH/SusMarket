@@ -1,9 +1,9 @@
 # SusMarket
 
-##Developers
+## Developers
 
 Rail_TH, No_KessPen
 
-##Stack:
+## Stack:
 
 React-Typescript, scss, python, django
