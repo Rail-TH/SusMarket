@@ -6,7 +6,7 @@ import ProfileInfo from "./ProfileInfo";
 export default function ProfileOrders() {
     return(
         <section className="orders-section">
-            <nav className="profile-section__nav">
+            <nav className="profile-page__nav">
                 <Link to="/" className="profile-link active">
                     Мои заказы
                 </Link>

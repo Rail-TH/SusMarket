@@ -1,0 +1,80 @@
+$background-color: #252422;
+$main-color: #CCC5B9;
+$accent-color: #EB5E28;
+
+.payment-page {
+    width: 96%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    .payment-page__price {
+        color: $accent-color;
+        font-size: 96px;
+        font-weight: 600;
+        line-height: 80px;
+        letter-spacing: 0%;
+        text-align: left;
+    }
+
+    .payment-page__payment-card {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-sizing: border-box;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: -4px -4px 10px 0px rgba(0, 0, 0, 0.25),4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+        background: $background-color;
+
+        .payment-card__heading {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+            letter-spacing: 0%;
+            text-align: left;
+        }
+
+        .payment-card__input {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 5px 20px 5px 20px;
+            box-sizing: border-box;
+            border: 2px solid $main-color;
+            border-radius: 12px;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+            letter-spacing: 0%;
+            text-align: left;
+        }
+        
+        .payment-card__inputs-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+    }
+
+    .payment-page__pay-link {
+        width: 500px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $accent-color;
+        border-radius: 15px;
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 29px;
+        letter-spacing: 0%;
+    }
+}

@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import Logotype from "../assets/img/amongasik.png";
 import CatalogMenu from "./CatalogMenu";
 import LoginMenu from "./LoginMenu";
+import { Category } from "../utils/types";
 
 interface HeaderProps {
     togglePopupMap: () => void;
+    onSelectCategory: (category: Category | 'all') => void;
+    onSearchChange: (query: string) => void;
 }
 
 interface HeaderCatalogMenuState {
@@ -17,7 +20,8 @@ interface HeaderLoginMenuState {
     isLoginMenuVisible: boolean;
 }
 
-export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
+
+export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps): JSX.Element {
     const [stateCatalog, setStateCatalog] = useState<HeaderCatalogMenuState>({
         isCatalogMenuVisible: false,
     });
@@ -39,6 +43,12 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
             isLoginMenuVisible: !prevState.isLoginMenuVisible,
         }));
     };
+
+    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    }
     
     return(
         <header className="header">
@@ -60,7 +70,15 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                 </motion.button>
                 <form action="search" className="search-form">
                     <div className="search-form__field">
-                        <input type="search" name="search" id="" className="search-form__input" placeholder="Я ищу..."/>
+                        <input 
+                            type="text"
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            name="search" 
+                            id="" 
+                            className="search-form__input" 
+                            placeholder="Я ищу..."
+                            onKeyDown={handleKeyDown}
+                        />
                         {/* Код для svg */}
                         <svg width="33.000000" height="33.000000" viewBox="0 0 33 33" fill="none">
                             <defs>
@@ -140,7 +158,7 @@ export default function Header({ togglePopupMap }: HeaderProps): JSX.Element {
                     {/* Код для svg */}
                 </motion.a>
             </nav>
-            {stateCatalog.isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu}/>}
+            {stateCatalog.isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu} onSelectCategory={onSelectCategory}/>}
             {stateLogin.isLoginMenuVisible && <LoginMenu toggleLoginMenu={toggleLoginMenu}/>}
         </header>
     )

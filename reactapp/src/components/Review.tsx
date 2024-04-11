@@ -60,7 +60,7 @@ export default function Review() {
             <p className="review-article__text-p">
                 dui faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa vitae tortor condimentum lacinia
             </p>
-            <img className="review-article__product-image" src={ProductImage} alt="Review product image" />
+            <img className="review-article__product-image" src={ProductImage} alt="Review product" />
         </article>
     )
 }

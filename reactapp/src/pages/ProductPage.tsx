@@ -35,7 +35,7 @@ export default function ProductPage({ value }: StarRatingProps) {
                             <span className="product-page__price-span">
                                 150 ₽
                             </span>
-                            <a href="/" className="product-page__buy-link">
+                            <a href="/payment" className="product-page__buy-link">
                                 Купить
                             </a>
                         </div>

@@ -2,7 +2,7 @@ $background-color: #252422;
 $main-color: #CCC5B9;
 $accent-color: #EB5E28;
 
-.profile-section {
+.profile-page {
     width: 96%;
     min-height: 100%;
     display: flex;
@@ -10,7 +10,7 @@ $accent-color: #EB5E28;
     align-items: center;
     gap: 20px;
 
-    .profile-section__nav {
+    .profile-page__nav {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -28,7 +28,7 @@ $accent-color: #EB5E28;
         }
     }
 
-    .profile-section__info-div {
+    .profile-page__info-div {
         display: flex;
         max-width: 150px;
         flex-direction: column;

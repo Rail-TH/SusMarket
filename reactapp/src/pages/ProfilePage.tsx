@@ -7,7 +7,7 @@ import ProfilePurchases from "../components/ProfilePurchases";
 
 export default function ProfilePage() {
     return(
-        <section className="profile-section">
+        <section className="profile-page">
             <Banner />
             <Routes>
                 <Route path="/" element={<ProfileOrders/>}/>

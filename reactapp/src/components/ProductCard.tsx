@@ -1,23 +1,22 @@
 import React from "react";
+import { Product } from "../utils/types";
 
-type ProductTypes = {
-    ProductImg: string,
-    ProductName: string,
-    Price: number
-}
+interface ProductCardProps {
+    product: Product;
+  }
 
-export default function ProductCard({ProductName, ProductImg, Price}:ProductTypes) {
-    const PriceAsString = Price.toString();
+export default function ProductCard({ product }: ProductCardProps) {
+    const PriceAsString = product.price.toString();
     
     return(
         <article className="product-article">
-            <img src={ProductImg} alt="" className="product-article__img"/>
+            <img src={product.image} alt="" className="product-article__img"/>
             <h5 className="product-article__price-h5">
                 <span>{PriceAsString}</span>
                 <span>₽</span>
             </h5>
             <h6 className="product-article__name-h6">
-                {ProductName}
+                {product.name}
             </h6>
         </article>
     )

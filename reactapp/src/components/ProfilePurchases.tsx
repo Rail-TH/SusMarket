@@ -8,7 +8,7 @@ import ProductImage from "../assets/img/product-image-3.webp";
 export default function ProfilePurchases() {
     return(
         <section className="purchases-section">
-            <nav className="profile-section__nav">
+            <nav className="profile-page__nav">
                 <Link to="/profile" className="profile-link">
                     Мои заказы
                 </Link>
@@ -19,9 +19,9 @@ export default function ProfilePurchases() {
             <div className="purchases-container">
                 <ProfileInfo />
                 <div className="purchases-div">
-                    <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={150}/>
+                    {/* <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={150}/>
                     <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={1234523453}/>
-                    <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={10}/>
+                    <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={10}/> */}
                 </div>
             </div>
         </section>
