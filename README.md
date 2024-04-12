@@ -6,4 +6,4 @@ Rail_TH, No_KessPen
 
 ## Stack:
 
-React-Typescript, scss, python, django
+React-Typescript, scss, python, django, methodology БЭМ
