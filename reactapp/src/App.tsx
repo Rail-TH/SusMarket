@@ -7,9 +7,10 @@ import ScamPage from "./pages/ScamPage";
 import InfoPage from "./pages/InfoPage";
 import Header from "./components/Header";
 import PopupMap from "./components/PopupMap";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import { Product, Category } from "./utils/types";
+import axios from 'axios';
 
 interface AppPopupMapState {
   isPopupMapVisible: boolean;
@@ -19,6 +20,20 @@ export default function App() {
   const [state, setState] = useState<AppPopupMapState>({
     isPopupMapVisible: false,
   });
+
+  const [details, setDetails] = useState([]);
+  
+  useEffect(() => {
+    let data;
+    axios.get('http://localhost:8000')
+      .then(res => {
+        data = res.data;
+        setDetails(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   const togglePopupMap = () => {
     setState((prevState) => ({
