@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.00e9905e.css",
+    "main.js": "/static/js/main.ff00eb34.js",
+    "static/media/scam-image.png": "/static/media/scam-image.c6c14289dc251ba2d2b1.png",
+    "static/media/info-page__railth-avatar.png": "/static/media/info-page__railth-avatar.cbf11c43b5ef243b38c0.png",
+    "static/media/add.webp": "/static/media/add.cd69f1e2a8c91109db0f.webp",
+    "static/media/review__user-avatar-test.png": "/static/media/review__user-avatar-test.d6da0e9b7f307182b6f5.png",
+    "static/media/amongasik.png": "/static/media/amongasik.15fd088e6bacdf0b4667.png",
+    "static/media/info-page__no-kesspen-avatar.png": "/static/media/info-page__no-kesspen-avatar.baa74b50e31a8363436b.png",
+    "static/media/review__product-image.webp": "/static/media/review__product-image.1228f982dc61729a63d0.webp",
+    "static/media/product-image-1.webp": "/static/media/product-image-1.32f43bafaff978a8db25.webp",
+    "static/media/profile-avatar.png": "/static/media/profile-avatar.2d72410c1ed8f95ce0c2.png",
+    "static/media/share-icon.svg": "/static/media/share-icon.078e541564f15a9740537cec6baba9ab.svg",
+    "static/media/review-form__add-image-icon.svg": "/static/media/review-form__add-image-icon.16aa2699eed6b58147903dc5b785d709.svg",
+    "static/media/rating__star-icon.svg": "/static/media/rating__star-icon.73718a24d04eb67f5873.svg",
+    "static/media/rating__filled-star-icon.svg": "/static/media/rating__filled-star-icon.dc7d908d4d943b7f3b56.svg",
+    "index.html": "/index.html",
+    "main.00e9905e.css.map": "/static/css/main.00e9905e.css.map",
+    "main.ff00eb34.js.map": "/static/js/main.ff00eb34.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.00e9905e.css",
+    "static/js/main.ff00eb34.js"
+  ]
+}
