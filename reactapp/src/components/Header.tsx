@@ -138,7 +138,7 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                     {/* Код для svg */}
                 </motion.button>
                 <motion.a 
-                    href="/" 
+                    href="info" 
                     className="header__info-a"
                     whileTap={{scale: 0.9}}
                     transition={{duration: 0.2, type: "spring"}}

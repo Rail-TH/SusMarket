@@ -11,7 +11,7 @@ interface HomePageProps {
 
 export default function HomePage({ products, selectedCategory }: HomePageProps) {
     return(
-        <section className="home-section">
+        <section className="home-page">
             <Banner />
             <div className="products-div">
                 {products.map(product => (
