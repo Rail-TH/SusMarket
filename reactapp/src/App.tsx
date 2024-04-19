@@ -2,7 +2,6 @@ import HomePage from "./pages/HomePage";
 import PaymentPage from "./pages/PaymentPage";
 import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
-import productImage from './assets/img/product-image-1.webp';
 import ScamPage from "./pages/ScamPage";
 import InfoPage from "./pages/InfoPage";
 import Header from "./components/Header";
@@ -21,17 +20,17 @@ export default function App() {
     isPopupMapVisible: false,
   });
 
-  const [details, setDetails] = useState([]);
-  
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
-    let data;
-    axios.get('http://localhost:8000')
-      .then(res => {
-        data = res.data;
-        setDetails(data);
+    axios.get('http://your-api-endpoint/products')
+      .then(response => {
+        setProducts(response.data);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.error('There was an error fetching the products', error);
       });
   }, []);
 
@@ -42,89 +41,13 @@ export default function App() {
     }));
   };
 
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: 'Шоколадка Mr. Beast',
-      category: 'foods',
-      price: 2000,
-      image: {productImage}
-    },
-    {
-      id: 2,
-      name: 'Салат',
-      category: 'foods',
-      price: 200,
-      image: {productImage}
-    },
-    {
-      id: 3,
-      name: 'Футболка',
-      category: 'clothes',
-      price: 1500,
-      image: {productImage}
-    },
-    {
-      id: 4,
-      name: 'Мороженое',
-      category: 'foods',
-      price: 150,
-      image: {productImage}
-    },
-    {
-      id: 5,
-      name: 'Фигурка',
-      category: 'figures',
-      price: 1799,
-      image: {productImage}
-    },
-    {
-      id: 6,
-      name: 'Трансформер',
-      category: 'toys',
-      price: 19999,
-      image: {productImage}
-    },
-    {
-      id: 7,
-      name: 'Старая игрушка Баз-Лайтер',
-      category: 'toys',
-      price: 2564235634563456,
-      image: {productImage}
-    },
-    {
-      id: 8,
-      name: 'Комплект одежды',
-      category: 'clothes',
-      price: 756,
-      image: {productImage}
-    },
-    {
-      id: 9,
-      name: 'Книга про ботанику',
-      category: 'books',
-      price: 2345,
-      image: {productImage}
-    },
-    {
-      id: 10,
-      name: 'Книга белая',
-      category: 'books',
-      price: 150,
-      image: {productImage}
-    },
-  ]);
-  const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
-
-  const [searchQuery, setSearchQuery] = useState('');
-
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
   };
 
   const filteredProducts = products.filter(product =>
     (selectedCategory === 'all' || product.category === selectedCategory) &&
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSelectCategory = (category: Category | 'all') => {

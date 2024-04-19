@@ -6,17 +6,17 @@ interface ProductCardProps {
   }
 
 export default function ProductCard({ product }: ProductCardProps) {
-    const PriceAsString = product.price.toString();
+    const priceAsString = product.price.toLocaleString('ru-RU');
     
     return(
         <article className="product-article">
-            <img src={product.image} alt="" className="product-article__img"/>
+            <img src={product.image} alt={product.title} className="product-article__img"/>
             <h5 className="product-article__price-h5">
-                <span>{PriceAsString}</span>
+                <span>{priceAsString}</span>
                 <span>₽</span>
             </h5>
             <h6 className="product-article__name-h6">
-                {product.name}
+                {product.title}
             </h6>
         </article>
     )
