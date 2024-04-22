@@ -38,7 +38,7 @@ class Product(models.Model):
 class User(models.Model):
     id = models.AutoField('ID Пользователя', unique=True, primary_key=True, db_index=True)
     login = models.CharField('Логин', max_length=50)
-    password = models.TextField('Описание товара', max_length=900)
+    password = models.TextField('Пароль', max_length=200)
     date = models.DateTimeField('Дата создания пользователя', auto_now=True)
 
     def __str__(self):
