@@ -4,9 +4,7 @@
 	border: none;
 }
 
-*,
-*::before,
-*::after {
+* {
 	box-sizing: border-box;
 }
 
@@ -37,11 +35,6 @@ ul, ul li {
 
 img {
 	vertical-align: top;
-}
-
-img, svg {
-	max-width: 100%;
-	height: auto;
 }
 
 address {
