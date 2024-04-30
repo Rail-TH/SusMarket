@@ -23,7 +23,7 @@ class Product(models.Model):
         MinValueValidator(1), MaxValueValidator(999)
     ])
     tags = models.TextField('Теги (Указывать через разделитель \'|\')', max_length=300)
-    icons = models.ImageField('Иконка товара', product="icons/product/")
+    icons = models.ImageField('Иконка товара', upload_to="icons/product/")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateTimeField('Дата создания товара', auto_now=True)
 
