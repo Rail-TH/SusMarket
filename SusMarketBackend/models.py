@@ -5,7 +5,7 @@ from django.db import models
 class Category(models.Model):
     id = models.CharField('ID Категории', max_length=50, unique=True, primary_key=True, db_index=True)
     title = models.CharField('Название Категории', max_length=50)
-    image = models.ImageField('Картинка категории')
+    image = models.ImageField('Картинка категории', upload_to="category/")
 
     def __str__(self):
         return self.title
@@ -23,7 +23,7 @@ class Product(models.Model):
         MinValueValidator(1), MaxValueValidator(999)
     ])
     tags = models.TextField('Теги (Указывать через разделитель \'|\')', max_length=300)
-    icons = models.ImageField('Иконка товара')
+    icons = models.ImageField('Иконка товара', product="product/")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateTimeField('Дата создания товара', auto_now=True)
 
@@ -55,8 +55,8 @@ class Review(models.Model):
     rate = models.PositiveIntegerField('Оценка', validators=[
         MinValueValidator(1), MaxValueValidator(5)
     ])
-    icons = models.ImageField('Изображение отзыва', null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    icons = models.ImageField('Изображение отзыва', null=True, upload_to=f"reviews/{product.id}")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField('Дата создания отзыва', auto_now=True)
 
