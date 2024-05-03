@@ -7,7 +7,7 @@ import InfoPage from "./pages/InfoPage";
 import Header from "./components/Header";
 import PopupMap from "./components/PopupMap";
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Product, Category } from "./utils/types";
 import axios from 'axios';
 
@@ -46,9 +46,9 @@ export default function App() {
   };
 
   const filteredProducts = products.filter(product =>
-    (selectedCategory === 'all' || product.category === selectedCategory) &&
+    (selectedCategory === 'all' || product.category === selectedCategory.id) &&  // или selectedCategory.title
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+);
 
   const handleSelectCategory = (category: Category | 'all') => {
     setSelectedCategory(category);
@@ -71,3 +71,4 @@ export default function App() {
     </>
   );
 }
+
