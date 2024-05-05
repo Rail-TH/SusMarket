@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Review from '../components/Review';
 import '../ProductStyle.scss';
-import ProductImage from "../assets/img/product-image-1.webp";
 import ShareIcon from "../assets/icons/share-icon.svg";
 import ReviewForm from '../components/ReviewForm';
 
@@ -17,7 +16,7 @@ export default function ProductPage({ value }: StarRatingProps) {
     return(
         <section className="product-page">
             <section className="product-page__main-section">
-                <img src={ProductImage} className="product-page__img" alt="изображение товара"/>
+                <img src="" className="product-page__img" alt="изображение товара"/>
                 <div className="product-page__info-div">
                     <span className="product-page__text-span">
                         <h2 className="product-page__heading-h2">

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import '../ProfileStyle.scss';
 import ProfileInfo from "./ProfileInfo";
 import ProductCard from "./ProductCard";
-import ProductImage from "../assets/img/product-image-3.webp";
 
 export default function ProfilePurchases() {
     return(

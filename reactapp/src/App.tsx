@@ -25,9 +25,9 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    axios.get('http://your-api-endpoint/products')
+    axios.get('http://127.0.0.1:8000/api/get/products')
       .then(response => {
-        setProducts(response.data);
+        setProducts(response.data.products);
       })
       .catch(error => {
         console.error('There was an error fetching the products', error);
@@ -46,9 +46,9 @@ export default function App() {
   };
 
   const filteredProducts = products.filter(product =>
-    (selectedCategory === 'all' || product.category === selectedCategory.id) &&  // или selectedCategory.title
+    (selectedCategory === 'all' || product.category_id === selectedCategory.id) &&
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
-);
+  );
 
   const handleSelectCategory = (category: Category | 'all') => {
     setSelectedCategory(category);

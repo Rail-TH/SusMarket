@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6f2d1059.css",
-    "main.js": "/static/js/main.d9d72c0f.js",
+    "main.css": "/static/css/main.b9cb408a.css",
+    "main.js": "/static/js/main.049434ff.js",
     "static/media/scam-image.png": "/static/media/scam-image.c6c14289dc251ba2d2b1.png",
     "static/media/info-page__railth-avatar.png": "/static/media/info-page__railth-avatar.cbf11c43b5ef243b38c0.png",
     "static/media/add.webp": "/static/media/add.cd69f1e2a8c91109db0f.webp",
@@ -9,27 +9,17 @@
     "static/media/amongasik.png": "/static/media/amongasik.15fd088e6bacdf0b4667.png",
     "static/media/info-page__no-kesspen-avatar.png": "/static/media/info-page__no-kesspen-avatar.baa74b50e31a8363436b.png",
     "static/media/review__product-image.webp": "/static/media/review__product-image.1228f982dc61729a63d0.webp",
-    "static/media/product-image-1.webp": "/static/media/product-image-1.32f43bafaff978a8db25.webp",
-    "static/media/catalog__books-icon.svg": "/static/media/catalog__books-icon.82ecf963ce9711f6ebe6.svg",
     "static/media/share-icon.svg": "/static/media/share-icon.078e541564f15a9740537cec6baba9ab.svg",
-    "static/media/catalog__toys-icon.svg": "/static/media/catalog__toys-icon.504b3ea190c2df18e505.svg",
-    "static/media/info-a__icon.svg": "/static/media/info-a__icon.94f109b43b4a6f590e78.svg",
-    "static/media/catalog__figures-icon.svg": "/static/media/catalog__figures-icon.381a82a829ff1946b236.svg",
-    "static/media/profile-a__icon.svg": "/static/media/profile-a__icon.abfd09e7735f6a979cfd.svg",
-    "static/media/geolocation-form__button-icon.svg": "/static/media/geolocation-form__button-icon.2549fdb5501f4e93d012.svg",
-    "static/media/catalog__food-icon.svg": "/static/media/catalog__food-icon.b5c9e648a238677e6336.svg",
-    "static/media/search-form__icon.svg": "/static/media/search-form__icon.c726c6b7cc206c12a9de.svg",
     "static/media/profile-avatar.svg": "/static/media/profile-avatar.1823777d20902d836fddbbcbc324756f.svg",
-    "static/media/catalog__clothes-icon.svg": "/static/media/catalog__clothes-icon.1d42620240e5fb01ccfc.svg",
     "static/media/review-form__add-image-icon.svg": "/static/media/review-form__add-image-icon.16aa2699eed6b58147903dc5b785d709.svg",
     "static/media/rating__star-icon.svg": "/static/media/rating__star-icon.73718a24d04eb67f5873.svg",
     "static/media/rating__filled-star-icon.svg": "/static/media/rating__filled-star-icon.dc7d908d4d943b7f3b56.svg",
     "index.html": "/index.html",
-    "main.6f2d1059.css.map": "/static/css/main.6f2d1059.css.map",
-    "main.d9d72c0f.js.map": "/static/js/main.d9d72c0f.js.map"
+    "main.b9cb408a.css.map": "/static/css/main.b9cb408a.css.map",
+    "main.049434ff.js.map": "/static/js/main.049434ff.js.map"
   },
   "entrypoints": [
-    "static/css/main.6f2d1059.css",
-    "static/js/main.d9d72c0f.js"
+    "static/css/main.b9cb408a.css",
+    "static/js/main.049434ff.js"
   ]
 }

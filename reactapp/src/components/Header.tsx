@@ -44,6 +44,10 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
         }));
     };
 
+    const resetCategoryFilter = () => {
+        onSelectCategory('all');
+    };
+
     function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -53,7 +57,7 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
     return(
         <header className="header">
             <nav className="header__main-nav">
-                <h1 className="header__title-h1">
+                <h1 className="header__title-h1" onClick={resetCategoryFilter}>
                     <Link to="/" className="title-h1__a">
                         <img className="header__logo-img" src={Logotype} alt="Dead amongus" />
                         <span>SuSMarket</span>

@@ -14,10 +14,16 @@ export default function HomePage({ products, selectedCategory }: HomePageProps) 
         <section className="home-page">
             <Banner />
             <div className="products-div">
-                {products.map(product => (
-                    <ProductCard key={product.id} product={product} />
+                {products.map((product) => (
+                    <ProductCard
+                        title={product.title}
+                        icons={product.icons}
+                        price={product.price}
+                        category_id={product.category_id}
+                        id={product.id}
+                    />
                 ))}
             </div>
         </section>
-    )
+    );
 }

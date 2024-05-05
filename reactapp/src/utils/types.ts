@@ -1,9 +1,9 @@
 export interface Product {
-  id: number;
   title: string;
-  category: string;
+  id: number;
+  category_id: string;
   price: number;
-  image: any;
+  icons: any;
 }
 
 export interface Category {
