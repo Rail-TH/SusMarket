@@ -1,7 +1,7 @@
 import React from "react";
 import { Product } from "../utils/types";
 
-export default function ProductCard({ icons, title, price, id, category_id }: Product) {
+export default function ProductCard({ icons, title, price }: Product) {
     const priceAsString = price.toLocaleString('ru-RU');
     
     return(

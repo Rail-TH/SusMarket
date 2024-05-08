@@ -62,7 +62,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage products={filteredProducts} selectedCategory={selectedCategory}/>}/>
           <Route path="profile/*" element={<ProfilePage />}/>
-          <Route path="product" element={<ProductPage value={4.4}/>}/>
+          <Route path="product/:id" element={<ProductPage/>}/>
           <Route path="payment" element={<PaymentPage />}/>
           <Route path="scam" element={<ScamPage />}/>
           <Route path="info" element={<InfoPage />}/>

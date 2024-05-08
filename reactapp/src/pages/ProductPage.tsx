@@ -1,29 +1,68 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
+import { Product, Reviews } from '../utils/types';
 import Review from '../components/Review';
+import axios from 'axios';
 import '../ProductStyle.scss';
 import ShareIcon from "../assets/icons/share-icon.svg";
 import ReviewForm from '../components/ReviewForm';
+import { useParams } from 'react-router-dom';
 
-interface StarRatingProps {
-    value: number;
-}
-
-export default function ProductPage({ value }: StarRatingProps) {
+export default function ProductPage() {
     function trimText(text: string, limit: number) {
         return text.length > limit ? text.substring(0, limit) + '...' : text;
+    }
+    
+    const { id } = useParams();
+    const [product, setProduct] = useState<Product | null>(null);
+    const [reviews, setReviews] = useState<Reviews[]>([]);
+    const [averageRating, setAverageRating] = useState<number>(0);
+    const [isDataFetched, setIsDataFetched] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get('http://127.0.0.1:8000/api/get/products')
+            .then(response => {
+                const productData = response.data.products.find(
+                    (item: Product) => item.id.toString() === id
+                );
+                setProduct(productData);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the products', error);
+            });
+    }, [id]);
+
+    useEffect(() => {
+        if (!isDataFetched) {
+            axios
+                .get(`http://127.0.0.1:8000/api/get/reviews/${id}`)
+                .then(response => {
+                    setReviews(response.data.review);
+                    const totalRating = response.data.review.reduce((acc: number, review: Reviews) => acc + review.rate, 0);
+                    const average = totalRating / response.data.review.length;
+                    setAverageRating(average);
+                })
+                .catch(error => {
+                    console.error('There was an error fetching the reviews', error)
+                })
+        }
+    }, [id, isDataFetched])
+    
+    if (!product) {
+        return <div>Loading</div>;
     }
     
     return(
         <section className="product-page">
             <section className="product-page__main-section">
-                <img src="" className="product-page__img" alt="изображение товара"/>
+                <img src={product.icons} className="product-page__img" alt="изображение товара"/>
                 <div className="product-page__info-div">
                     <span className="product-page__text-span">
                         <h2 className="product-page__heading-h2">
-                            Шоколадка Mr. Beast
+                            {product.title}
                         </h2>
                         <p className="product-page__short-desc-div">
-                            {trimText('Тот самый легендарный шоколад, который выпустил один из самых известных блогеров - MrBeast!Представляем вам шоколадную плитку, созданную самым популярным блогером в мире - Mr.Beast feastables! Отныне, вы можете наслаждаться самой вкусной шоколадной плиткой на планете, которая удивит вас своим непревзойденным вкусом и качеством.Шоколад "Mr. Beast Feastables" - это вкусный сладкий десерт, специально созданный для поклонников блогера Мистера Биста. Он представляет собой комбинацию изысканного молочного шоколада с разнообразными начинками, которые подчеркивают его оригинальность и неповторимый вкус.Каждый кусочек "Mr. Beast Feastables" - это маленький рай для сладкоежек, так как он сочетает в себе шоколадные ноты, нежную текстуру и уникальное сочетание ингредиентов. В каждой упаковке можно найти различные варианты начинок, такие как карамель, орехи, маршмеллоу, кукурузные хлопья и другие вкусные сюрпризы. Этот шоколадный "feast" отражает всю энергию и креативность блогера Мистера Биста, который славится своими необычными и увлекательными челленджами.Не упустите возможность попробовать настоящий шедевр в мире шоколада!', 200)}
+                            {trimText(product.description, 200)}
                         </p>
                     </span>
                     <div className="product-page__container-div">
@@ -32,7 +71,7 @@ export default function ProductPage({ value }: StarRatingProps) {
                         </button>
                         <div className="product-page__price-buy-div">
                             <span className="product-page__price-span">
-                                150 ₽
+                                {product.price} ₽
                             </span>
                             <a href="/payment" className="product-page__buy-link">
                                 Купить
@@ -46,21 +85,14 @@ export default function ProductPage({ value }: StarRatingProps) {
                     Описание
                 </h3>
                 <p className="product-page__desc">
-                    Тот самый легендарный шоколад, который выпустил один из самых известных блогеров - MrBeast!Представляем вам шоколадную плитку, созданную самым популярным блогером в мире - Mr.Beast feastables! Отныне, вы можете наслаждаться самой вкусной шоколадной плиткой на планете, которая удивит вас своим непревзойденным вкусом и качеством.Шоколад "Mr. Beast Feastables" - это вкусный сладкий десерт, специально созданный для поклонников блогера Мистера Биста. Он представляет собой комбинацию изысканного молочного шоколада с разнообразными начинками, которые подчеркивают его оригинальность и неповторимый вкус.Каждый кусочек "Mr. Beast Feastables" - это маленький рай для сладкоежек, так как он сочетает в себе шоколадные ноты, нежную текстуру и уникальное сочетание ингредиентов. В каждой упаковке можно найти различные варианты начинок, такие как карамель, орехи, маршмеллоу, кукурузные хлопья и другие вкусные сюрпризы. Этот шоколадный "feast" отражает всю энергию и креативность блогера Мистера Биста, который славится своими необычными и увлекательными челленджами.Не упустите возможность попробовать настоящий шедевр в мире шоколада!
+                    {product.description}
                 </p>
                 <ul className="product-page__tags-ul">
-                    <li className="product-page__tag-li">
-                        Кондитерский
-                    </li>
-                    <li className="product-page__tag-li">
-                        Шоколад
-                    </li>
-                    <li className="product-page__tag-li">
-                        Mr. Beast
-                    </li>
-                    <li className="product-page__tag-li">
-                        Молочный шоколад
-                    </li>
+                    {(product.tags.split('|')).map((tag, index) => (
+                        <li key={index} className="product-page__tag-li">
+                            {tag}
+                        </li>
+                    ))}
                 </ul>
             </section>
             <section className="product-page__reviews-section">
@@ -70,14 +102,14 @@ export default function ProductPage({ value }: StarRatingProps) {
                 <div className='reviews-section__rate-block'>
                     <div className='rate-block__rating'>
                         <span className='rate-block__rate-number'>
-                            {value}
+                        {averageRating.toFixed(1)}
                         </span>
                         <div className="rate-block__star-rating">
                             <div className="star-rating__back-stars">
                                 {'★★★★★'.split('').map((star, i) => (
                                 <span key={`back-star-${i}`}>{star}</span>
                                 ))}
-                                <div className="star-rating__front-stars" style={{ width: `${(value / 5) * 100}%` }}>
+                                <div className="star-rating__front-stars" style={{ width: `${(averageRating / 5) * 100}%` }}>
                                 {'★★★★★'.split('').map((star, i) => (
                                     <span key={`front-star-${i}`}>{star}</span>
                                 ))}
@@ -130,7 +162,9 @@ export default function ProductPage({ value }: StarRatingProps) {
                 </div>
                 <ReviewForm />
                 <div className='product-page__reviews-container'>
-                    <Review />
+                    {reviews.map((review) => (
+                        <Review key={review.id} review={review} />
+                    ))}
                 </div>
             </section>
         </section>
