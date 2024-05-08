@@ -41,6 +41,7 @@ export default function ProductPage() {
                     const totalRating = response.data.review.reduce((acc: number, review: Reviews) => acc + review.rate, 0);
                     const average = totalRating / response.data.review.length;
                     setAverageRating(average);
+                    setIsDataFetched(true);
                 })
                 .catch(error => {
                     console.error('There was an error fetching the reviews', error)
