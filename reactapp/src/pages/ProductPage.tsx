@@ -8,21 +8,29 @@ import ReviewForm from '../components/ReviewForm';
 import { useParams } from 'react-router-dom';
 
 export default function ProductPage() {
-    function trimText(text: string, limit: number) {
+    function trimText(text: string, limit: number) { //сокращение описания
         return text.length > limit ? text.substring(0, limit) + '...' : text;
     }
     
-    const { id } = useParams();
-    const [product, setProduct] = useState<Product | null>(null);
-    const [reviews, setReviews] = useState<Reviews[]>([]);
-    const [averageRating, setAverageRating] = useState<number>(0);
-    const [isDataFetched, setIsDataFetched] = useState(false);
+    const { id } = useParams(); //возвращает id товара из Url
+    const [product, setProduct] = useState<Product | null>(null); //состояние для данных о товаре
+    const [reviews, setReviews] = useState<Reviews[]>([]); //состаяние для отзывов
+    const [averageRating, setAverageRating] = useState<number>(0); //состояние для средней арифметической оценки товара
+    const [isDataFetched, setIsDataFetched] = useState(false); //состояние для отслеживания кэширования данных из запроса
+    const totalReviews = reviews.length; //количество отзывов
+    const countReviewsByRate = (rate: number): number => { //подсчёт отзывов с данной оценкой
+        return reviews.filter(review => review.rate === rate).length;
+    };
+    const percentageOfRate = (rate: number): number => { //расчёт процента отзывов с данной оценкой от количетсва всех отзывов
+        const count = countReviewsByRate(rate);
+        return (count / totalReviews) * 100;
+    };
 
-    useEffect(() => {
+    useEffect(() => { //запрос к api данных о товаре
         axios
             .get('http://127.0.0.1:8000/api/get/products')
             .then(response => {
-                const productData = response.data.products.find(
+                const productData = response.data.products.find( //"извлечение" данных о товаре из массива по его id
                     (item: Product) => item.id.toString() === id
                 );
                 setProduct(productData);
@@ -32,15 +40,20 @@ export default function ProductPage() {
             });
     }, [id]);
 
-    useEffect(() => {
-        if (!isDataFetched) {
+    useEffect(() => { //запрос к api отзывов у товара
+        if (!isDataFetched) { //проверка на кэширование данных
             axios
                 .get(`http://127.0.0.1:8000/api/get/reviews/${id}`)
                 .then(response => {
                     setReviews(response.data.review);
-                    const totalRating = response.data.review.reduce((acc: number, review: Reviews) => acc + review.rate, 0);
-                    const average = totalRating / response.data.review.length;
-                    setAverageRating(average);
+                    const totalRating = response.data.review.reduce((acc: number, review: Reviews) => acc + review.rate, 0); //общий рейтинг отзывов
+                    const average = totalRating / response.data.review.length; //средннее арифметический рейтинг всех отзывов
+                    if (response.data.review.length > 0) { //проверка на наличие отзывов
+                        setAverageRating(average);
+                    }
+                    else {
+                        setAverageRating(0);
+                    }
                     setIsDataFetched(true);
                 })
                 .catch(error => {
@@ -89,7 +102,7 @@ export default function ProductPage() {
                     {product.description}
                 </p>
                 <ul className="product-page__tags-ul">
-                    {(product.tags.split('|')).map((tag, index) => (
+                    {(product.tags.split('|')).map((tag, index) => ( //разделение тегов
                         <li key={index} className="product-page__tag-li">
                             {tag}
                         </li>
@@ -107,7 +120,7 @@ export default function ProductPage() {
                         </span>
                         <div className="rate-block__star-rating">
                             <div className="star-rating__back-stars">
-                                {'★★★★★'.split('').map((star, i) => (
+                                {'★★★★★'.split('').map((star, i) => ( //пожалуйста, не спрашивайте как это работает
                                 <span key={`back-star-${i}`}>{star}</span>
                                 ))}
                                 <div className="star-rating__front-stars" style={{ width: `${(averageRating / 5) * 100}%` }}>
@@ -119,46 +132,16 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className='rate-block__progressbars-group'>
-                        <div className='progressbars-group__progressbar-container'>
-                            <span className='rate-progressbar__rate-number'>
-                                5
-                            </span>
-                            <div className='progressbar-container__progressbar'>
-                                <div className='progressbar__active-line'></div>
-                            </div>
+                    {[5, 4, 3, 2, 1].map(rate => (
+                        <div className='progressbars-group__progressbar-container' key={rate}>
+                        <span className='rate-progressbar__rate-number'>
+                            {rate}
+                        </span>
+                        <div className='progressbar-container__progressbar'>
+                            <div className='progressbar__active-line' style={{ width: `${percentageOfRate(rate)}%` }}></div>
                         </div>
-                        <div className='progressbars-group__progressbar-container'>
-                            <span className='rate-progressbar__rate-number'>
-                                4
-                            </span>
-                            <div className='progressbar-container__progressbar'>
-                                <div className='progressbar__active-line'></div>
-                            </div>
                         </div>
-                        <div className='progressbars-group__progressbar-container'>
-                            <span className='rate-progressbar__rate-number'>
-                                3
-                            </span>
-                            <div className='progressbar-container__progressbar'>
-                                <div className='progressbar__active-line'></div>
-                            </div>
-                        </div>
-                        <div className='progressbars-group__progressbar-container'>
-                            <span className='rate-progressbar__rate-number'>
-                                2
-                            </span>
-                            <div className='progressbar-container__progressbar'>
-                                <div className='progressbar__active-line'></div>
-                            </div>
-                        </div>
-                        <div className='progressbars-group__progressbar-container'>
-                            <span className='rate-progressbar__rate-number'>
-                                1
-                            </span>
-                            <div className='progressbar-container__progressbar'>
-                                <div className='progressbar__active-line'></div>
-                            </div>
-                        </div>
+                    ))}
                     </div>
                 </div>
                 <ReviewForm />

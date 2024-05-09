@@ -8,21 +8,20 @@ interface CatalogMenuProps {
 }
 
 export default function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: CatalogMenuProps): JSX.Element {
-    const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]); //состояние для категорий
   
-    useEffect(() => {
+    useEffect(() => { //запрос к api для получения категорий
         const fetchCategories = async () => {
-        try {
+          try {
             const response = await axios.get('http://127.0.0.1:8000/api/get/category');
             setCategories(response.data.categories);
-            console.log(response.data);
-        } catch (error) {
+          } catch (error) {
             console.error(`There was an error retrieving the data: ${error}`);
-        }
+          }
         };
-
+      
         fetchCategories();
-    }, []);
+      }, []);
     
     return(
         <>

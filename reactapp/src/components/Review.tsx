@@ -7,8 +7,8 @@ type ReviewProps = {
     review: Reviews;
 };
 
-export default function Review({ review }: ReviewProps) {
-    const readableDate = new Date(review.date).toLocaleDateString('ru-RU');
+export default function Review({ review }: ReviewProps) { //соответствие типов данных в review с указанными типами и свойствами в интерфейсе Reviews
+    const readableDate = new Date(review.date).toLocaleDateString('ru-RU'); //приводит дату отзыва из запроса к api в читаемый вид (чч/мм/гг)
     
     return(
         <article className="review-article">

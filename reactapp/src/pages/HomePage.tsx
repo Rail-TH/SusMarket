@@ -2,15 +2,14 @@ import React from "react";
 import '../HomeStyle.scss';
 import ProductCard from "../components/ProductCard";
 import Banner from "../components/AdBanner";
-import { Product, Category } from "../utils/types";
+import { Product } from "../utils/types";
 import { Link } from "react-router-dom";
 
-interface HomePageProps {
+type HomePageProps = {
     products: Product[];
-    selectedCategory: Category | 'all';
 }
 
-export default function HomePage({ products, selectedCategory }: HomePageProps) {
+export default function HomePage({ products }: HomePageProps) { //соответствие типов данных в products с указанными типами и свойствами в интерфейсе Product
     return(
         <section className="home-page">
             <Banner />

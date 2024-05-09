@@ -23,3 +23,10 @@ export interface Reviews {
   rate: number;
   user_id: number;
 }
+
+export interface DeveloperCard {
+  avatar: string;
+  name: string;
+  info: string;
+  url: string;
+}

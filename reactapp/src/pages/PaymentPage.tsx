@@ -2,40 +2,36 @@ import React, { useState } from "react";
 import '../PaymentStyle.scss';
 
 export default function PaymentPage() {
-    let price = 150
+    const [ccNumber, setCcNumber] = useState(""); //состояние номера кредитной карты
+    const [valueDate, setValueDate] = useState<number | ''>(''); //состояние даты истечения срока карты
+    const [valueCode, setValueCode] = useState<number | ''>(''); //состояние кода безопасности карты
 
-    const [ccNumber, setCcNumber] = useState("");
-    const [valueDate, setValueDate] = useState<number | ''>('');
-    const [valueCode, setValueCode] = useState<number | ''>('');
-
-    const formatAndSetCcNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputVal = e.target.value.replace(/ /g, ""); //remove all the empty spaces in the input
-        let inputNumbersOnly = inputVal.replace(/\D/g, ""); // Get only digits
+    const formatAndSetCcNumber = (e: React.ChangeEvent<HTMLInputElement>) => { //в ccNumber максимум 16 цифр, разбивка пробелами по 4
+        const inputVal = e.target.value.replace(/ /g, "");
+        let inputNumbersOnly = inputVal.replace(/\D/g, "");
     
         if (inputNumbersOnly.length > 16) {
-            //If entered value has a length greater than 16 then take only the first 16 digits
             inputNumbersOnly = inputNumbersOnly.substr(0, 16);
         }
-    
-       // Get nd array of 4 digits per an element EX: ["4242", "4242", ...]
+
         const splits = inputNumbersOnly.match(/.{1,4}/g);
     
         let spacedNumber = "";
         if (splits) {
-            spacedNumber = splits.join(" "); // Join all the splits with an empty space
+            spacedNumber = splits.join(" ");
         }
     
-        setCcNumber(spacedNumber); // Set the new CC number
+        setCcNumber(spacedNumber);
     };
 
-    const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => { //valueDate не более 4-х цифр
         const inputValue = event.target.value;
         if (inputValue.length <= 4) {
             setValueDate(inputValue === '' ? '' : Number(inputValue));
         }
     };
 
-    const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeCode = (event: React.ChangeEvent<HTMLInputElement>) => { //valueCode не более 3-х цифр
         const inputValue = event.target.value;
         if (inputValue.length <= 3) {
             setValueCode(inputValue === '' ? '' : Number(inputValue));
@@ -45,7 +41,7 @@ export default function PaymentPage() {
     return(
         <section className="payment-page">
             <h2 className="payment-page__price">
-                {price} ₽
+                 ₽
             </h2>
             <div className="payment-page__payment-card">
                 <h3 className="payment-card__heading">

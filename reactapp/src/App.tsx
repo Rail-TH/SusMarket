@@ -60,7 +60,7 @@ export default function App() {
       {state.isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap}/>}
       <main className="main">
         <Routes>
-          <Route path="/" element={<HomePage products={filteredProducts} selectedCategory={selectedCategory}/>}/>
+          <Route path="/" element={<HomePage products={filteredProducts}/>}/>
           <Route path="profile/*" element={<ProfilePage />}/>
           <Route path="product/:id" element={<ProductPage/>}/>
           <Route path="payment" element={<PaymentPage />}/>
