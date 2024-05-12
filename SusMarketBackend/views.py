@@ -30,6 +30,11 @@ def register_user(request: HttpRequest, login: str, password: str):
     return HttpResponse('{error: "Null"}')
 
 
+def post_review(request: HttpRequest, commentary: str, rate: int, product: int, icon: str, user_id: int):
+    Review.objects.create(commentary=commentary, rate=rate, product_id=product, icons=icon, user_id=user_id)
+    return HttpResponse('{error: "Null"}')
+
+
 def check_user(request: HttpRequest, login: str):
     checkObj = {"status": True if User.objects.filter(login=login).first() is None else False}
     return JsonResponse(checkObj)
@@ -37,4 +42,9 @@ def check_user(request: HttpRequest, login: str):
 
 def user(request: HttpRequest, login: str, password: str):
     userObj = {"user": User.objects.filter(login=login, password=hashlib.md5(password).hexdigest()).first()}
+    return JsonResponse(userObj)
+
+
+def user_by_id(request: HttpRequest, user_id: int):
+    userObj = {"user": User.objects.filter(id=user_id).first()}
     return JsonResponse(userObj)
