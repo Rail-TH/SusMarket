@@ -56,7 +56,7 @@ class Review(models.Model):
         MinValueValidator(1), MaxValueValidator(5)
     ])
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    icons = models.TextField('Изображение отзыва в BASE64')
+    icons = models.TextField('Изображение отзыва в BASE64', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField('Дата создания отзыва', auto_now=True)
 
