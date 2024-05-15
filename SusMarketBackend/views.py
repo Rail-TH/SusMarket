@@ -55,7 +55,7 @@ def user(request: HttpRequest):
     if request.GET:
         login = request.GET["login"]
         password = request.GET["password"]
-        userObj = {"user": list(User.objects.filter(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest()).first())}
+        userObj = {"user": User.objects.filter(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest()).values()}
         return JsonResponse(userObj)
     return HttpResponse('{error: "You doing not right"}')
 
