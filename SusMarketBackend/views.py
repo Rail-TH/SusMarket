@@ -2,6 +2,7 @@ import hashlib
 
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.forms.models import model_to_dict
 
 from SusMarketBackend.models import Category, Product, Review, User
 
@@ -55,7 +56,7 @@ def user(request: HttpRequest):
     if request.GET:
         login = request.GET["login"]
         password = request.GET["password"]
-        userObj = {"user": User.objects.filter(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest()).first()}
+        userObj = {"user": model_to_dict(User.objects.filter(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest()).first())}
         return JsonResponse(userObj)
     return HttpResponse('{error: "You doing not right"}')
 
