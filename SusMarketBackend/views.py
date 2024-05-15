@@ -51,9 +51,13 @@ def check_user(request: HttpRequest, login: str):
     return JsonResponse(checkObj)
 
 
-def user(request: HttpRequest, login: str, password: str):
-    userObj = {"user": User.objects.filter(login=login, password=hashlib.md5(password.encode('utf-8')).hexdigest()).first()}
-    return JsonResponse(userObj)
+def user(request: HttpRequest):
+    if request.GET:
+        login = request.GET["login"]
+        password = request.GET["password"]
+        userObj = {"user": User.objects.filter(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest()).first()}
+        return JsonResponse(userObj)
+    return HttpResponse('{error: "You doing not right"}')
 
 
 def user_by_id(request: HttpRequest, user_id: int):

@@ -14,6 +14,6 @@ urlpatterns = [
     path('api/post/user', views.register_user, name='register-user'),
     path('api/post/review', views.post_review, name='post-review'),
     path('api/post/check/user/<str:login>', views.check_user, name='check-user'),
-    path('api/get/user/<str:login>/<str:password>', views.user, name='get-user'),
+    path('api/get/user', views.user, name='get-user'),
     path('api/get/user/<int:user_id>', views.user_by_id, name='get-user-by-id')
 ]
