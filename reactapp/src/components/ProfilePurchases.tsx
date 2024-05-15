@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../ProfileStyle.scss';
 import ProfileInfo from "./ProfileInfo";
-import ProductCard from "./ProductCard";
+// import ProductCard from "./ProductCard";
 
 export default function ProfilePurchases() {
     return(

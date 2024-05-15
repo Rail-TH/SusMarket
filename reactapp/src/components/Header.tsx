@@ -5,6 +5,8 @@ import Logotype from "../assets/img/amongasik.png";
 import CatalogMenu from "./CatalogMenu";
 import LoginMenu from "./LoginMenu";
 import { Category } from "../utils/types";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
     togglePopupMap: () => void;
@@ -22,26 +24,25 @@ interface HeaderLoginMenuState {
 
 
 export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps): JSX.Element {
-    const [stateCatalog, setStateCatalog] = useState<HeaderCatalogMenuState>({
-        isCatalogMenuVisible: false,
-    });
-
-    const [stateLogin, setStateLogin] = useState<HeaderLoginMenuState>({
-        isLoginMenuVisible: false,
-    });
+    const [isCatalogMenuVisible, setIsCatalogMenuVisible] = useState(false);
+    const [isLoginMenuVisible, setIsLoginMenuVisible] = useState(false);
+    const navigate = useNavigate();
 
     const toggleCatalogMenu = () => {
-        setStateCatalog((prevState) => ({
-            ...prevState,
-            isCatalogMenuVisible: !prevState.isCatalogMenuVisible,
-        }));
+        setIsCatalogMenuVisible(!isCatalogMenuVisible);
     };
 
     const toggleLoginMenu = () => {
-        setStateLogin((prevState) => ({
-            ...prevState,
-            isLoginMenuVisible: !prevState.isLoginMenuVisible,
-        }));
+        setIsLoginMenuVisible(!isLoginMenuVisible);
+    };
+
+    const handleProfileClick = () => {
+        const userCookie = Cookies.get('user');
+        if (userCookie) {
+            navigate('/profile');
+        } else {
+            toggleLoginMenu();
+        }
     };
 
     const resetCategoryFilter = () => {
@@ -102,7 +103,7 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                     className="header__profile-a"
                     whileTap={{scale: 0.9}}
                     transition={{duration: 0.2, type: "spring"}}
-                    onClick={toggleLoginMenu}
+                    onClick={handleProfileClick}
                 >
                     {/* Код для svg */}
                     <motion.svg width="48.000000" height="48.000000" viewBox="0 0 48 48" fill="none"
@@ -162,8 +163,8 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                     {/* Код для svg */}
                 </motion.a>
             </nav>
-            {stateCatalog.isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu} onSelectCategory={onSelectCategory}/>}
-            {stateLogin.isLoginMenuVisible && <LoginMenu toggleLoginMenu={toggleLoginMenu}/>}
+            {isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu} onSelectCategory={onSelectCategory}/>}
+            {isLoginMenuVisible && <LoginMenu toggleLoginMenu={toggleLoginMenu}/>}
         </header>
     )
 }
