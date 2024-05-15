@@ -29,7 +29,7 @@ def register_user(request: HttpRequest):
     if request.GET:
         login = request.GET["login"]
         password = request.GET["password"]
-        User.objects.create(login=login, password=hashlib.md5(password).hexdigest())
+        User.objects.create(login=login, password=hashlib.md5(str(password).encode('utf-8')).hexdigest())
         return HttpResponse('{error: "Null"}')
     return HttpResponse('{error: "You doing not right"}')
 
