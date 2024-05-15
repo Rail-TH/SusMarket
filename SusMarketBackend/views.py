@@ -25,14 +25,25 @@ def reviews(request: HttpRequest, product: int):
     return JsonResponse(reviewObj)
 
 
-def register_user(request: HttpRequest, login: str, password: str):
-    User.objects.create(login=login, password=hashlib.md5(password).hexdigest())
-    return HttpResponse('{error: "Null"}')
+def register_user(request: HttpRequest):
+    if request.GET:
+        login = request.GET["login"]
+        password = request.GET["password"]
+        User.objects.create(login=login, password=hashlib.md5(password).hexdigest())
+        return HttpResponse('{error: "Null"}')
+    return HttpResponse('{error: "You doing not right"}')
 
 
-def post_review(request: HttpRequest, commentary: str, rate: int, product: int, icon: str, user_id: int):
-    Review.objects.create(commentary=commentary, rate=rate, product_id=product, icons=icon, user_id=user_id)
-    return HttpResponse('{error: "Null"}')
+def post_review(request: HttpRequest):
+    if request.GET:
+        commentary = request.GET["commentary"]
+        rate = request.GET["rate"]
+        product = request.GET["product"]
+        icon = request.GET["icon"]
+        user_id = request.GET["user_id"]
+        Review.objects.create(commentary=commentary, rate=int(rate), product_id=product, icons=icon, user_id=user_id)
+        return HttpResponse('{error: "Null"}')
+    return HttpResponse('{error: "You doing not right"}')
 
 
 def check_user(request: HttpRequest, login: str):
