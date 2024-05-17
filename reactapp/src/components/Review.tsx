@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Reviews } from "../utils/types";
 import "../index.scss";
 import UserAvatar from "../assets/img/templateUser-avatar.png";
@@ -7,57 +8,49 @@ type ReviewProps = {
     review: Reviews;
 };
 
-export default function Review({ review }: ReviewProps) { //соответствие типов данных в review с указанными типами и свойствами в интерфейсе Reviews
-    const readableDate = new Date(review.date).toLocaleDateString('ru-RU'); //приводит дату отзыва из запроса к api в читаемый вид (чч/мм/гг)
-    
-    return(
+export default function Review({ review }: ReviewProps) {
+    const [userName, setUserName] = useState<string>("");
+    const readableDate = new Date(review.date).toLocaleDateString('ru-RU');
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/get/user/${review.user_id}`);
+                if (response.status === 200) {
+                    setUserName(response.data.login);
+                }
+            } catch (error) {
+                console.error('Ошибка при получении логина пользователя:', error);
+            }
+        };
+
+        fetchUserName();
+    }, [review.user_id]);
+
+    return (
         <article className="review-article">
             <div className="review-article__review-container">
                 <div className="review-container__user-info">
                     <img className="user-info__user-avatar" src={UserAvatar} alt="Review user avatar" />
                     <h4 className="user-info__user-name">
-                        {review.user_id}
+                        {userName}
                     </h4>
                 </div>
                 <div className="review-container__review-info">
                     <div className="review-info__star-rate">
-                        <input 
-                            type="radio" 
-                            className="star-rate__star-radio"  
-                            value={1} 
-                            aria-label="Плохо" 
-                            checked={review.rate === 1}
-                        />
-                        <input 
-                            type="radio" 
-                            className="star-rate__star-radio"  
-                            value={2} 
-                            aria-label="Удовлетворительно" 
-                            checked={review.rate === 2}
-                        />
-                        <input 
-                            type="radio" 
-                            className="star-rate__star-radio"  
-                            value={3} 
-                            aria-label="Нормально" 
-                            checked={review.rate === 3}
-                        />
-                        <input 
-                            type="radio" 
-                            className="star-rate__star-radio"  
-                            value={4} 
-                            aria-label="Хорошо" 
-                            checked={review.rate === 4}
-                        />
-                        <input 
-                            type="radio" 
-                            className="star-rate__star-radio"  
-                            value={5} 
-                            aria-label="Отлично" 
-                            checked={review.rate === 5}
-                        />
+                        {[1, 2, 3, 4, 5].map(rate => (
+                            <input 
+                                key={rate}
+                                type="radio" 
+                                className="star-rate__star-radio"  
+                                value={rate} 
+                                aria-label={rate === 1 ? "Плохо" : rate === 2 ? "Удовлетворительно" : rate === 3 ? "Нормально" : rate === 4 ? "Хорошо" : "Отлично"}
+                                checked={review.rate === rate}
+                                readOnly
+                            />
+                        ))}
                     </div>
-                    <time className="review-info__review-date" dateTime="2019-09-09">
+                    <time className="review-info__review-date" dateTime={new Date(review.date).toISOString()}>
                         {readableDate}
                     </time>
                 </div>
@@ -65,7 +58,7 @@ export default function Review({ review }: ReviewProps) { //соответств
             <p className="review-article__text-p">
                 {review.commentary}
             </p>
-            <img className="review-article__product-image" src={review.icons} alt="Review product" />
+            {review.icons && <img className="review-article__product-image" src={review.icons} alt="Review product" />}
         </article>
-    )
+    );
 }

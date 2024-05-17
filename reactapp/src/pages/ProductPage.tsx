@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../ProductStyle.scss';
 import ShareIcon from "../assets/icons/share-icon.svg";
 import ReviewForm from '../components/ReviewForm';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function ProductPage() {
     function trimText(text: string, limit: number) { //сокращение описания
@@ -87,9 +87,9 @@ export default function ProductPage() {
                             <span className="product-page__price-span">
                                 {product.price} ₽
                             </span>
-                            <a href="/payment" className="product-page__buy-link">
+                            <Link to={`/payment?price=${product.price}`} className="product-page__buy-link">
                                 Купить
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ export default function ProductPage() {
                     ))}
                     </div>
                 </div>
-                <ReviewForm />
+                <ReviewForm productId={product.id.toLocaleString('ru-RU')}/>
                 <div className='product-page__reviews-container'>
                     {reviews.map((review) => (
                         <Review key={review.id} review={review} />
@@ -154,3 +154,4 @@ export default function ProductPage() {
         </section>
     )
 }
+

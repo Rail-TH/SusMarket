@@ -20,10 +20,16 @@ export default function PopupMap({ togglePopupMap }: PopupMapProps): JSX.Element
                 <div className="popup-map__menu-div">
                     <div className="menu-div__container-div">
                         <div className="menu-div__delivery-div">
-                            <button className={selectedButton === 1 ? 'delivery-div__delivery-button delivery-div__delivery-button_selected' : 'delivery-div__delivery-button'} onClick={() => handleButtonClick(1)}>
+                            <button
+                                className={`delivery-div__delivery-button ${selectedButton === 1 ? 'delivery-div__delivery-button_selected' : ''}`}
+                                onClick={() => handleButtonClick(1)}
+                            >
                                 Самовывоз
                             </button>
-                            <button className={selectedButton === 2 ? 'delivery-div__delivery-button delivery-div__delivery-button_selected' : 'delivery-div__delivery-button'} onClick={() => handleButtonClick(2)}>
+                            <button
+                                className={`delivery-div__delivery-button ${selectedButton === 2 ? 'delivery-div__delivery-button_selected' : ''}`}
+                                onClick={() => handleButtonClick(2)}
+                            >
                                 Курьером
                             </button>
                         </div>
