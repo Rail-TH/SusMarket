@@ -61,5 +61,5 @@ def user(request: HttpRequest):
 
 
 def user_by_id(request: HttpRequest, user_id: int):
-    userObj = {"user": User.objects.filter(id=user_id).first()}
+    userObj = {"user": list(User.objects.filter(id=user_id).values())}
     return JsonResponse(userObj)
