@@ -23,11 +23,7 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps): JSX.Elem
             let response;
             if (isRegistering) {
                 // Регистрация пользователя
-                const params = new URLSearchParams({
-                    login: login,
-                    password: password
-                });
-                response = await axios.get(`http://127.0.0.1:8000/api/post/user?${params.toString()}`);
+                response = await axios.get(`http://127.0.0.1:8000/api/post/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`);
             } else {
                 // Вход в систему
                 response = await axios.get(`http://127.0.0.1:8000/api/get/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`);

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../ProfileStyle.scss';
 import ProfileInfo from "./ProfileInfo";
-// import ProductCard from "./ProductCard";
 
 export default function ProfilePurchases() {
     return(
@@ -18,9 +17,7 @@ export default function ProfilePurchases() {
             <div className="purchases-container">
                 <ProfileInfo />
                 <div className="purchases-div">
-                    {/* <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={150}/>
-                    <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={1234523453}/>
-                    <ProductCard ProductImg={ProductImage} ProductName="Абеме" Price={10}/> */}
+                    
                 </div>
             </div>
         </section>

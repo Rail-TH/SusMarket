@@ -14,35 +14,22 @@ interface HeaderProps {
     onSearchChange: (query: string) => void;
 }
 
-interface HeaderCatalogMenuState {
-    isCatalogMenuVisible: boolean;
-}
-
-interface HeaderLoginMenuState {
-    isLoginMenuVisible: boolean;
-}
-
-
 export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps): JSX.Element {
     const [isCatalogMenuVisible, setIsCatalogMenuVisible] = useState(false);
     const [isLoginMenuVisible, setIsLoginMenuVisible] = useState(false);
     const navigate = useNavigate();
 
     const toggleCatalogMenu = () => {
-        setIsCatalogMenuVisible(!isCatalogMenuVisible);
+        setIsCatalogMenuVisible(prevState => !prevState);
     };
 
     const toggleLoginMenu = () => {
-        setIsLoginMenuVisible(!isLoginMenuVisible);
+        setIsLoginMenuVisible(prevState => !prevState);
     };
 
     const handleProfileClick = () => {
         const userCookie = Cookies.get('user');
-        if (userCookie) {
-            navigate('/profile');
-        } else {
-            toggleLoginMenu();
-        }
+        userCookie ? navigate('/profile') : toggleLoginMenu();
     };
 
     const resetCategoryFilter = () => {
