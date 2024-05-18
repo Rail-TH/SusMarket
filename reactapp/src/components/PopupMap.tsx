@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 type ButtonState = 1 | 2 | null;
 
@@ -6,16 +6,28 @@ interface PopupMapProps {
     togglePopupMap: () => void;
 }
 
-export default function PopupMap({ togglePopupMap }: PopupMapProps): JSX.Element {
+export default function PopupMap({ togglePopupMap }: PopupMapProps) {
     const [selectedButton, setSelectedButton] = useState<ButtonState>(null);
 
     const handleButtonClick = (buttonId: ButtonState) => {
         setSelectedButton(buttonId);
     };
+
+    const handleClose = () => {
+        document.body.classList.remove('no-scroll');
+        togglePopupMap();
+    };
+
+    useEffect(() => {
+        document.body.classList.add('no-scroll');
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, []);
     
     return(
         <>
-            <div className="background-blackout" onClick={togglePopupMap}></div>
+            <div className="background-blackout" onClick={handleClose}></div>
             <div className="popup-map">
                 <div className="popup-map__menu-div">
                     <div className="menu-div__container-div">

@@ -14,9 +14,10 @@ interface ReviewState {
 export default function ReviewForm({ productId }: { productId: string }) {
     const [review, setReview] = useState<ReviewState>({ text: '', rating: 1 });
     const [userId, setUserId] = useState<string | null>(null);
+    const [imageName, setImageName] = useState<string | null>(null);
 
     useEffect(() => {
-        const userIdFromCookie = Cookies.get('id');
+        const userIdFromCookie = Cookies.get('user_id');
         if (userIdFromCookie) {
             setUserId(userIdFromCookie);
         }
@@ -32,11 +33,14 @@ export default function ReviewForm({ productId }: { productId: string }) {
 
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            setImageName(file.name);
+
             const reader = new FileReader();
             reader.onload = () => {
                 setReview({ ...review, image: reader.result });
             };
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(file);
         }
     }
 
@@ -47,20 +51,21 @@ export default function ReviewForm({ productId }: { productId: string }) {
             return;
         }
         try {
-            const formData = new FormData();
-            formData.append('product_id', productId);
-            formData.append('text', review.text);
-            formData.append('rating', String(review.rating));
+            const params = new URLSearchParams();
+            params.append('commentary', review.text);
+            params.append('rate', String(review.rating));
+            params.append('product', productId);
+            params.append('user_id', userId);
             if (review.image) {
-                formData.append('image', review.image as string);
+                params.append('icon', review.image as string);
             }
-            formData.append('user_id', userId);
-            await axios.post('http://127.0.0.1:8000/api/post/review', formData, {
+
+            await axios.post('http://127.0.0.1:8000/api/post/review', params, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-            console.log('Review submitted successfully!');
+            alert("Отзыв успешно отправлен!")
             // Опционально: добавить логику для обновления списка отзывов на странице после успешной отправки
         } catch (error) {
             console.error('Error submitting review:', error);
@@ -94,17 +99,20 @@ export default function ReviewForm({ productId }: { productId: string }) {
                 value={review.text}
                 onChange={handleTextChange}
             />
-            <label htmlFor="review-image" className='review-form__image-attach'>
-                <img src={ImageAttachIcon} alt="Прикрепить изображение" />
-            </label>
-            <input
-                className='review-form__image-input'
-                type="file"
-                name="review image"
-                id="review-image"
-                accept='.png, .jpg, .jpeg'
-                onChange={handleImageChange}
-            />
+            <div className='review-form__image-container'>
+                <label htmlFor="review-image" className='review-form__image-attach'>
+                    <img src={ImageAttachIcon} alt="Прикрепить изображение" />
+                </label>
+                <input
+                    className='review-form__image-input'
+                    type="file"
+                    name="review image"
+                    id="review-image"
+                    accept='.png, .jpg, .jpeg'
+                    onChange={handleImageChange}
+                />
+                {imageName && <div className="review-form__image-name">{imageName}</div>}
+            </div>
             <motion.button
                 className='review-form__send-button'
                 type='submit'

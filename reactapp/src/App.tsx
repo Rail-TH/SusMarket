@@ -41,12 +41,17 @@ export default function App() {
 
   // Функция для переключения отображения/скрытия карты
   const togglePopupMap = () => {
-    setState((prevState) => (
-      {
+    setState((prevState) => {
+      if (!prevState.isPopupMapVisible) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+      return {
         ...prevState,
         isPopupMapVisible: !prevState.isPopupMapVisible,
-      }
-    ));
+      };
+    });
   };
 
   // Обработчик изменения поискового запроса

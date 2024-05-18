@@ -8,6 +8,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+body.no-scroll {
+    overflow: hidden;
+}
+
 .product-article {
     display: flex;
     width: 260px;

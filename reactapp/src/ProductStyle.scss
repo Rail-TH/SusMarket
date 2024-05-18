@@ -317,16 +317,34 @@ $accent-color: #EB5E28;
                 font-size: 24px;
             }
 
-            .review-form__image-attach {
-                width: 34px;
-
-                img {
-                    width: 100%;
+            .review-form__image-container {
+                width: 100%;
+                display: flex;
+                gap: 20px;
+                
+                .review-form__image-attach {
+                    width: 34px;
+    
+                    img {
+                        width: 100%;
+                    }
                 }
-            }
+    
+                .review-form__image-input {
+                    display: none;
+                }
 
-            .review-form__image-input {
-                display: none;
+                .review-form__image-name {
+                    color: black;
+                    font-size: 16px;
+                    background-color: $main-color;
+                    border-radius: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: 500;
+                    padding: 10px 20px;
+                }
             }
 
             .review-form__send-button {

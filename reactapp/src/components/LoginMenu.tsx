@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,18 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps): JSX.Elem
         setIsLoginMode(!isLoginMode);
     }
 
+    const handleClose = () => {
+        document.body.classList.remove('no-scroll');
+        toggleLoginMenu();
+    };
+
+    useEffect(() => {
+        document.body.classList.add('no-scroll');
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, []);
+
     const handleAuth = async (isRegistering: boolean) => {
         try {
             let response;
@@ -27,16 +39,24 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps): JSX.Elem
             } else {
                 // Вход в систему
                 response = await axios.get(`http://127.0.0.1:8000/api/get/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`);
+                // Проверка наличия пользователя
+                if (response.data.user.length === 0) {
+                    alert('Пользователь не найден.');
+                    // Здесь можно выполнить действия в случае отсутствия пользователя, например, вывести сообщение об ошибке
+                    return;
+                }
             }
+    
             if (response.status === 200) {
                 // Создание cookie файла
                 Cookies.set('user', login, { expires: 1 }); // Cookie на 1 день
+                Cookies.set('user_id', response.data.user[0].id, { expires: 1 })
                 // Перенаправление на страницу профиля
                 navigate('/profile');
                 toggleLoginMenu(); // Закрытие меню входа
             }
         } catch (error) {
-            console.error('Ошибка при авторизации:', error);
+            alert('Ошибка при авторизации: ' + error);
         }
     }
 
@@ -47,7 +67,7 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps): JSX.Elem
     
     return(
         <>
-            <div className="background-blackout" onClick={toggleLoginMenu}></div>
+            <div className="background-blackout" onClick={handleClose}></div>
             <form className="popup-login" onSubmit={handleSubmit}>
                 <div className="popup-login__top-container">
                     <div className="top-container__headings-text">

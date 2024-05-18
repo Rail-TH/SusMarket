@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f8545ce2.css",
-    "main.js": "/static/js/main.29450137.js",
+    "main.css": "/static/css/main.c2ca56ed.css",
+    "main.js": "/static/js/main.b01594ed.js",
     "static/media/scam-image.png": "/static/media/scam-image.c6c14289dc251ba2d2b1.png",
     "static/media/info-page__railth-avatar.png": "/static/media/info-page__railth-avatar.cbf11c43b5ef243b38c0.png",
     "static/media/add.webp": "/static/media/add.cd69f1e2a8c91109db0f.webp",
@@ -13,11 +13,11 @@
     "static/media/rating__star-icon.svg": "/static/media/rating__star-icon.73718a24d04eb67f5873.svg",
     "static/media/rating__filled-star-icon.svg": "/static/media/rating__filled-star-icon.dc7d908d4d943b7f3b56.svg",
     "index.html": "/index.html",
-    "main.f8545ce2.css.map": "/static/css/main.f8545ce2.css.map",
-    "main.29450137.js.map": "/static/js/main.29450137.js.map"
+    "main.c2ca56ed.css.map": "/static/css/main.c2ca56ed.css.map",
+    "main.b01594ed.js.map": "/static/js/main.b01594ed.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8545ce2.css",
-    "static/js/main.29450137.js"
+    "static/css/main.c2ca56ed.css",
+    "static/js/main.b01594ed.js"
   ]
 }

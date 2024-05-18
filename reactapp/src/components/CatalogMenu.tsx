@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Category } from "../utils/types";
 
@@ -10,18 +10,15 @@ interface CatalogMenuProps {
 export default function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: CatalogMenuProps): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
-    const fetchCategories = useCallback(async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/api/get/category');
-            setCategories(response.data.categories);
-        } catch (error) {
-            console.error(`There was an error retrieving the data: ${error}`);
-        }
-    }, []);
-
     useEffect(() => {
-        fetchCategories();
-    }, [fetchCategories]);
+        axios.get('http://127.0.0.1:8000/api/get/category')
+          .then(response => {
+            setCategories(response.data.categories);
+          })
+          .catch(error => {
+            console.error(`There was an error retrieving the data: ${error}`);
+          });
+      }, []);
 
     return (
         <>
