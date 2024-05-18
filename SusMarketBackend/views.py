@@ -35,12 +35,15 @@ def register_user(request: HttpRequest):
 
 
 def post_review(request: HttpRequest):
-    if request.GET:
-        commentary = request.GET["commentary"]
-        rate = request.GET["rate"]
-        product = request.GET["product"]
-        icon = request.GET["icon"]
-        user_id = request.GET["user_id"]
+    if request.POST:
+        commentary = request.POST["commentary"]
+        rate = request.POST["rate"]
+        product = request.POST["product"]
+        try:
+            icon = request.POST["icon"]
+        except Exception:
+            icon = None
+        user_id = request.POST["user_id"]
         Review.objects.create(commentary=commentary, rate=int(rate), product_id=product, icons=icon, user_id=user_id)
         return HttpResponse('{error: "Null"}')
     return HttpResponse('{error: "You doing not right"}')
