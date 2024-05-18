@@ -35,7 +35,7 @@ def register_user(request: HttpRequest):
 
 
 def post_review(request: HttpRequest):
-    if request.POST:
+    if request.method == "POST":
         commentary = request.POST["commentary"]
         rate = request.POST["rate"]
         product = request.POST["product"]
