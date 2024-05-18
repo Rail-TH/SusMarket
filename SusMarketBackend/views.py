@@ -1,6 +1,7 @@
 import hashlib
 
 from django.http import JsonResponse, HttpRequest, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 
 from SusMarketBackend.models import Category, Product, Review, User
@@ -34,6 +35,7 @@ def register_user(request: HttpRequest):
     return HttpResponse('{error: "You doing not right"}')
 
 
+@csrf_exempt
 def post_review(request: HttpRequest):
     if request.method == "POST":
         commentary = request.POST["commentary"]
