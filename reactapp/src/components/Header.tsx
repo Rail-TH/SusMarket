@@ -14,6 +14,8 @@ interface HeaderProps {
     onSearchChange: (query: string) => void;
 }
 
+const MotionLink = motion(Link);
+
 export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps): JSX.Element {
     const [isCatalogMenuVisible, setIsCatalogMenuVisible] = useState(false);
     const [isLoginMenuVisible, setIsLoginMenuVisible] = useState(false);
@@ -129,8 +131,8 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                     </svg>
                     {/* Код для svg */}
                 </motion.button>
-                <motion.a 
-                    href="info" 
+                <MotionLink
+                    to="/info" 
                     className="header__info-a"
                     whileTap={{scale: 0.9}}
                     transition={{duration: 0.2, type: "spring"}}
@@ -148,7 +150,7 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                             </g>
                         </svg>
                     {/* Код для svg */}
-                </motion.a>
+                </MotionLink>
             </nav>
             {isCatalogMenuVisible && <CatalogMenu toggleCatalogMenu={toggleCatalogMenu} onSelectCategory={onSelectCategory}/>}
             {isLoginMenuVisible && <LoginMenu toggleLoginMenu={toggleLoginMenu}/>}

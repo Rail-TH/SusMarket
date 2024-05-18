@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 type ButtonState = 1 | 2 | null;
 
@@ -32,24 +33,32 @@ export default function PopupMap({ togglePopupMap }: PopupMapProps) {
                 <div className="popup-map__menu-div">
                     <div className="menu-div__container-div">
                         <div className="menu-div__delivery-div">
-                            <button
+                            <motion.button
                                 className={`delivery-div__delivery-button ${selectedButton === 1 ? 'delivery-div__delivery-button_selected' : ''}`}
                                 onClick={() => handleButtonClick(1)}
+                                whileTap={{scale: 0.98}}
+                                transition={{duration: 0.02, type: "spring"}}
                             >
                                 Самовывоз
-                            </button>
-                            <button
+                            </motion.button>
+                            <motion.button
                                 className={`delivery-div__delivery-button ${selectedButton === 2 ? 'delivery-div__delivery-button_selected' : ''}`}
                                 onClick={() => handleButtonClick(2)}
+                                whileTap={{scale: 0.98}}
+                                transition={{duration: 0.02, type: "spring"}}
                             >
                                 Курьером
-                            </button>
+                            </motion.button>
                         </div>
                         <input type="search" name="address-search" id="address-search" placeholder="Искать на карте" className="menu-div__search-input"/>
                     </div>
-                    <button className="menu-div__select-button">
+                    <motion.button 
+                        className="menu-div__select-button"
+                        whileTap={{scale: 0.98}}
+                        transition={{duration: 0.01, type: "spring"}}
+                    >
                         Заберу здесь
-                    </button>
+                    </motion.button>
                 </div>
                 <div className="popup-map__map-div">
                     <a href="https://yandex.ru/maps/65/novosibirsk/?utm_medium=mapframe&utm_source=maps" style={{color:"#eee", fontSize:"12px", position:"absolute", top:"0px"}}>Новосибирск</a>

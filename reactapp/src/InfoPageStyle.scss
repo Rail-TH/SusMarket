@@ -25,7 +25,7 @@ $accent-color: #EB5E28;
             text-align: center;
             transition: transform 0.6s;
             transform-style: preserve-3d;
-            box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: -4px -4px 10px 0px rgba(0, 0, 0, 0.25),4px 4px 20px 0px rgba(0, 0, 0, 0.25);
     
             .dev-card__front, .dev-card__back {
                 position: absolute;
