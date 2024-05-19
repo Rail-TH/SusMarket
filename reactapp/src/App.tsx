@@ -12,92 +12,67 @@ import PopupMap from "./components/PopupMap";
 import { Product, Category } from "./utils/types";
 
 interface AppPopupMapState {
-  isPopupMapVisible: boolean;
+    isPopupMapVisible: boolean;
 }
 
 export default function App() {
-  // Состояние для отображения/скрытия карты
-  const [state, setState] = useState<AppPopupMapState>({
-    isPopupMapVisible: false,
-  });
+    const [state, setState] = useState<AppPopupMapState>({ isPopupMapVisible: false });
+    const [products, setProducts] = useState<Product[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
+    const [searchQuery, setSearchQuery] = useState('');
 
-  // Массив товаров
-  const [products, setProducts] = useState<Product[]>([]);
-  // Выбранная категория или все категории
-  const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
-  // Поисковый запрос
-  const [searchQuery, setSearchQuery] = useState('');
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/api/get/products')
+            .then(response => {
+                setProducts(response.data.products);
+            })
+            .catch(error => {
+                console.error('Error fetching the products:', error);
+            });
+    }, []);
 
-  // Получение товаров при загрузке компонента
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/get/products')
-      .then(response => {
-        setProducts(response.data.products);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the products', error);
-      });
-  }, []);
+    const togglePopupMap = () => {
+        setState(prevState => {
+            if (!prevState.isPopupMapVisible) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+            return { ...prevState, isPopupMapVisible: !prevState.isPopupMapVisible };
+        });
+    };
 
-  // Функция для переключения отображения/скрытия карты
-  const togglePopupMap = () => {
-    setState((prevState) => {
-      if (!prevState.isPopupMapVisible) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-      }
-      return {
-        ...prevState,
-        isPopupMapVisible: !prevState.isPopupMapVisible,
-      };
-    });
-  };
+    const handleSearchChange = (query: string) => {
+        setSearchQuery(query);
+    };
 
-  // Обработчик изменения поискового запроса
-  const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
-  };
+    const filteredProducts = products.filter(product =>
+        (selectedCategory === 'all' || product.category_id === selectedCategory.id) &&
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-  // Фильтрация продуктов по выбранной категории и поисковому запросу
-  const filteredProducts = products.filter(product =>
-    (selectedCategory === 'all' || product.category_id === selectedCategory.id) &&
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    const handleSelectCategory = (category: Category | 'all') => {
+        setSelectedCategory(category);
+    };
 
-  // Обработчик выбора категории
-  const handleSelectCategory = (category: Category | 'all') => {
-    setSelectedCategory(category);
-  };
-  
-  return (
-    <>
-      {/* Шапка сайта */}
-      <Header 
-        togglePopupMap={togglePopupMap} 
-        onSelectCategory={handleSelectCategory} 
-        onSearchChange={handleSearchChange}
-      />
-      {/* Карта */}
-      {state.isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap}/>}
-      {/* Основной контент */}
-      <main className="main">
-        <Routes>
-          {/* Главная страница */}
-          <Route path="/" element={<HomePage products={filteredProducts}/>}/>
-          {/* Страница профиля */}
-          <Route path="profile/*" element={<ProfilePage />}/>
-          {/* Страница продукта */}
-          <Route path="product/:id" element={<ProductPage/>}/>
-          {/* Страница оплаты */}
-          <Route path="payment" element={<PaymentPage />}/>
-          {/* Страница с описанием */}
-          <Route path="scam" element={<ScamPage />}/>
-          {/* Страница информации */}
-          <Route path="info" element={<InfoPage />}/>
-        </Routes>
-      </main>
-    </>
-  );
+    return (
+        <>
+            <Header 
+                togglePopupMap={togglePopupMap} 
+                onSelectCategory={handleSelectCategory} 
+                onSearchChange={handleSearchChange}
+            />
+            {state.isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap} />}
+            <main className="main">
+                <Routes>
+                    <Route path="/" element={<HomePage products={filteredProducts} />} />
+                    <Route path="profile/*" element={<ProfilePage />} />
+                    <Route path="product/:id" element={<ProductPage />} />
+                    <Route path="payment" element={<PaymentPage />} />
+                    <Route path="scam" element={<ScamPage />} />
+                    <Route path="info" element={<InfoPage />} />
+                </Routes>
+            </main>
+        </>
+    );
 }
-

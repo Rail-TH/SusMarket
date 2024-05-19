@@ -8,30 +8,30 @@ import Cookies from 'js-cookie';
 interface ReviewState {
     text: string;
     rating: number;
-    image?: string | ArrayBuffer | null; // Изображение может быть в формате base64
+    image?: string | ArrayBuffer | null;
 }
 
 export default function ReviewForm({ productId }: { productId: string }) {
-    const [review, setReview] = useState<ReviewState>({ text: '', rating: 1 });
-    const [userId, setUserId] = useState<string | null>(null);
-    const [imageName, setImageName] = useState<string | null>(null);
+    const [review, setReview] = useState<ReviewState>({ text: '', rating: 1 }); // Состояние для отзыва
+    const [userId, setUserId] = useState<string | null>(null); // Состояние для ID пользователя
+    const [imageName, setImageName] = useState<string | null>(null); // Состояние для имени изображения
 
-    useEffect(() => {
+    useEffect(() => { // Получение ID пользователя из cookie при инициализации компонента
         const userIdFromCookie = Cookies.get('user_id');
         if (userIdFromCookie) {
             setUserId(userIdFromCookie);
         }
     }, []);
 
-    function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) { // Обработчик изменения текста отзыва
         setReview({ ...review, text: event.target.value });
     }
 
-    function handleRatingChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleRatingChange(event: React.ChangeEvent<HTMLInputElement>) { // Обработчик изменения оценки отзыва
         setReview({ ...review, rating: Number(event.target.value) });
     }
 
-    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) { // Обработчик изменения изображения
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
             setImageName(file.name);
@@ -44,10 +44,10 @@ export default function ReviewForm({ productId }: { productId: string }) {
         }
     }
 
-    async function handleSubmit(event: React.FormEvent) {
+    async function handleSubmit(event: React.FormEvent) { // Обработчик отправки формы
         event.preventDefault();
         if (!userId) {
-            console.error('User ID not found!');
+            console.error('ID пользователя не найден!');
             return;
         }
         try {
@@ -65,19 +65,17 @@ export default function ReviewForm({ productId }: { productId: string }) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-            alert("Отзыв успешно отправлен!")
-            // Опционально: добавить логику для обновления списка отзывов на странице после успешной отправки
+            alert("Отзыв успешно отправлен!");
         } catch (error) {
-            console.error('Error submitting review:', error);
+            console.error('Ошибка при отправке отзыва:', error);
         }
     }
 
     return (
         <form className='product-page__review-form' onSubmit={handleSubmit}>
-            <h5 className='review-form__heading'>
-                Оставить отзыв
-            </h5>
+            <h5 className='review-form__heading'>Оставить отзыв</h5>
             <div className="review-form__stars-container">
+                {/* Создание радиокнопок для выбора оценки */}
                 {[...Array(5)].map((_, index) => (
                     <input
                         key={index}

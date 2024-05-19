@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1aa814f6.css",
-    "main.js": "/static/js/main.47a170f7.js",
+    "main.js": "/static/js/main.0ec10cd6.js",
     "static/media/scam-image.png": "/static/media/scam-image.c6c14289dc251ba2d2b1.png",
     "static/media/info-page__railth-avatar.png": "/static/media/info-page__railth-avatar.cbf11c43b5ef243b38c0.png",
     "static/media/add.webp": "/static/media/add.cd69f1e2a8c91109db0f.webp",
@@ -14,10 +14,10 @@
     "static/media/rating__filled-star-icon.svg": "/static/media/rating__filled-star-icon.dc7d908d4d943b7f3b56.svg",
     "index.html": "/index.html",
     "main.1aa814f6.css.map": "/static/css/main.1aa814f6.css.map",
-    "main.47a170f7.js.map": "/static/js/main.47a170f7.js.map"
+    "main.0ec10cd6.js.map": "/static/js/main.0ec10cd6.js.map"
   },
   "entrypoints": [
     "static/css/main.1aa814f6.css",
-    "static/js/main.47a170f7.js"
+    "static/js/main.0ec10cd6.js"
   ]
 }

@@ -7,7 +7,6 @@ import NoKesspenAvatar from "../assets/img/info-page__no-kesspen-avatar.png";
 export default function InfoPage() {
     return (
         <section className="info-page">
-            {/* Компонент DevCard отображает информацию о разработчике */}
             <DevCard 
                 avatar={NoKesspenAvatar}
                 name="No_Kesspen"

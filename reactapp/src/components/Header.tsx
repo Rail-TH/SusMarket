@@ -1,48 +1,40 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import Logotype from "../assets/img/amongasik.png";
-import CatalogMenu from "./CatalogMenu";
-import LoginMenu from "./LoginMenu";
-import { Category } from "../utils/types";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import Logotype from '../assets/img/amongasik.png';
+import CatalogMenu from './CatalogMenu';
+import LoginMenu from './LoginMenu';
+import { Category } from '../utils/types';
+import Cookies from 'js-cookie';
 
-interface HeaderProps {
-    togglePopupMap: () => void;
-    onSelectCategory: (category: Category | 'all') => void;
-    onSearchChange: (query: string) => void;
+interface HeaderProps { // Интерфейс для пропсов компонента Header
+    togglePopupMap: () => void; // Функция для переключения видимости карты
+    onSelectCategory: (category: Category | 'all') => void; // Функция для выбора категории
+    onSearchChange: (query: string) => void; // Функция для изменения строки поиска
 }
 
-const MotionLink = motion(Link);
+const MotionLink = motion(Link); // Вынесение компонента в отдельную переменную для удобства использования
 
-export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps): JSX.Element {
-    const [isCatalogMenuVisible, setIsCatalogMenuVisible] = useState(false);
-    const [isLoginMenuVisible, setIsLoginMenuVisible] = useState(false);
-    const navigate = useNavigate();
-
-    const toggleCatalogMenu = () => {
-        setIsCatalogMenuVisible(prevState => !prevState);
+export default function Header({ togglePopupMap, onSelectCategory, onSearchChange }: HeaderProps) {
+    const [isCatalogMenuVisible, setIsCatalogMenuVisible] = useState(false); // Состояние для хранения видимости карточного меню
+    const [isLoginMenuVisible, setIsLoginMenuVisible] = useState(false); // Состояние для хранения видимости меню входа
+    const navigate = useNavigate(); // Функция для навигации
+  
+    const toggleCatalogMenu = () => setIsCatalogMenuVisible(prevState => !prevState); // Функция для переключения видимости карточного меню
+    const toggleLoginMenu = () => setIsLoginMenuVisible(prevState => !prevState); // Функция для переключения видимости меню входа
+  
+    const handleProfileClick = () => { // Функция для перехода на страницу профиля при нажатии на кнопку
+      const userCookie = Cookies.get('user'); // Проверка на наличие куки с логином
+      userCookie ? navigate('/profile') : toggleLoginMenu(); // Переход на страницу профиля если куки есть, иначе переключение видимости меню входа
     };
-
-    const toggleLoginMenu = () => {
-        setIsLoginMenuVisible(prevState => !prevState);
+  
+    const resetCategoryFilter = () => onSelectCategory('all'); // Функция для сброса фильтрации категорий
+  
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => { // Функция для обработки нажатия клавиши Enter в поле ввода
+      if (event.key === 'Enter') { // Предотвращение отправки формы при нажатии Enter
+        event.preventDefault();
+      }
     };
-
-    const handleProfileClick = () => {
-        const userCookie = Cookies.get('user');
-        userCookie ? navigate('/profile') : toggleLoginMenu();
-    };
-
-    const resetCategoryFilter = () => {
-        onSelectCategory('all');
-    };
-
-    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-        }
-    }
     
     return(
         <header className="header">
@@ -67,8 +59,7 @@ export default function Header({ togglePopupMap, onSelectCategory, onSearchChang
                         <input 
                             type="text"
                             onChange={(e) => onSearchChange(e.target.value)}
-                            name="search" 
-                            id="" 
+                            name="search"
                             className="search-form__input" 
                             placeholder="Я ищу..."
                             onKeyDown={handleKeyDown}

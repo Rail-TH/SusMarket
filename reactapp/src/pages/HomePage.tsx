@@ -31,4 +31,3 @@ export default function HomePage({ products }: HomePageProps) {
         </section>
     );
 }
-
