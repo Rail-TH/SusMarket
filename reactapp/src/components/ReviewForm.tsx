@@ -50,6 +50,9 @@ export default function ReviewForm({ productId }: { productId: string }) {
             console.error('ID пользователя не найден!');
             return;
         }
+
+        const baseUrl = window.location.origin; // Получаем текущий домен сайта
+
         try {
             const params = new URLSearchParams();
             params.append('commentary', review.text);
@@ -60,7 +63,7 @@ export default function ReviewForm({ productId }: { productId: string }) {
                 params.append('icon', review.image as string);
             }
 
-            await axios.post('http://127.0.0.1:8000/api/post/review', params, {
+            await axios.post(`${baseUrl}/api/post/review`, params, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

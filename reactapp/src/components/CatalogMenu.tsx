@@ -11,7 +11,9 @@ export default function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: Cat
   const [categories, setCategories] = useState<Category[]>([]); // Состояние для хранения категорий
 
   useEffect(() => { // При монтировании компонента запрашиваем категории с сервера
-    axios.get('http://127.0.0.1:8000/api/get/category')
+    const baseUrl = window.location.origin; // Получаем текущий домен сайта
+    
+    axios.get(`${baseUrl}/api/get/category`)
       .then(response => {
         setCategories(response.data.categories);
       })

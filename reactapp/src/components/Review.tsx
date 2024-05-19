@@ -13,7 +13,9 @@ export default function Review({ review }: ReviewProps) {
     const readableDate = new Date(review.date).toLocaleDateString('ru-RU'); // Преобразование даты в читабельную форму
 
     useEffect(() => { // Получение имени пользователя по его ID
-        axios.get(`http://127.0.0.1:8000/api/get/user/${review.user_id}`)
+        const baseUrl = window.location.origin; // Получаем текущий домен сайта
+        
+        axios.get(`${baseUrl}/api/get/user/${review.user_id}`)
             .then(response => {
                 const user = response.data.user[0];
                 setUserName(user.login);

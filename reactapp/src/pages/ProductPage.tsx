@@ -34,7 +34,9 @@ export default function ProductPage() {
     };
 
     useEffect(() => { // Получение продукта по его id
-        axios.get('http://127.0.0.1:8000/api/get/products')
+        const baseUrl = window.location.origin; // Получаем текущий домен сайта
+        
+        axios.get(`${baseUrl}/api/get/products`)
             .then(response => {
                 const productData = response.data.products.find(
                     (item: Product) => item.id.toString() === id
@@ -48,7 +50,9 @@ export default function ProductPage() {
 
     useEffect(() => { // Получение рецензий по id продукта
         if (!isDataFetched) {
-            axios.get(`http://127.0.0.1:8000/api/get/reviews/${id}`)
+            const baseUrl = window.location.origin;
+            
+            axios.get(`${baseUrl}/api/get/reviews/${id}`)
                 .then(response => {
                     const reviewsData = response.data.review;
                     setReviews(reviewsData);

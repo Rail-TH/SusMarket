@@ -29,15 +29,17 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps) {
   }, []);
 
   const handleAuth = async (isRegistering: boolean) => { // Функция для обработки авторизации
+    const baseUrl = window.location.origin; // Получаем текущий домен сайта
+    
     try {
       let response;
       if (isRegistering) {
         response = await axios.get(
-          `http://127.0.0.1:8000/api/post/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
+          `${baseUrl}/api/post/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
         );
       } else {
         response = await axios.get(
-          `http://127.0.0.1:8000/api/get/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
+          `${baseUrl}/api/get/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
         );
         if (response.data.user.length === 0) {
           alert('Пользователь не найден.');
