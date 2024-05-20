@@ -7,7 +7,7 @@ from django.shortcuts import render
 from SusMarketBackend.models import Category, Product, Review, User
 
 
-def index(request):
+def index(request, product: int = 0):
     return render(request, 'index.html')
 
 
