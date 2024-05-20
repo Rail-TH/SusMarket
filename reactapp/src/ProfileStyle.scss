@@ -7,7 +7,7 @@ $accent-color: #EB5E28;
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
 
     .profile-page__nav {
@@ -44,7 +44,6 @@ $accent-color: #EB5E28;
 
     .orders-section {
         width: 100%;
-        min-height: 100%;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -119,7 +118,6 @@ $accent-color: #EB5E28;
 
     .purchases-section {
         width: 100%;
-        min-height: 100%;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -133,5 +131,9 @@ $accent-color: #EB5E28;
                 display: flex;
             }
         }
+    }
+
+    .profile-page__logout-button {
+        width: 48px;
     }
 }
