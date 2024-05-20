@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../ProfileStyle.scss';
 import ProfileInfo from "./ProfileInfo";
 
-export default function ProfileOrders() {
+function ProfileOrders() {
     return(
         <section className="orders-section">
             <nav className="profile-page__nav">
@@ -38,3 +38,5 @@ export default function ProfileOrders() {
         </section>
     )
 }
+
+export default ProfileOrders;

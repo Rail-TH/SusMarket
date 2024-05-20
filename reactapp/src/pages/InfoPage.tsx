@@ -4,7 +4,7 @@ import "../InfoPageStyle.scss";
 import RailTHAvatar from "../assets/img/info-page__railth-avatar.png";
 import NoKesspenAvatar from "../assets/img/info-page__no-kesspen-avatar.png";
 
-export default function InfoPage() {
+function InfoPage() {
     return (
         <section className="info-page">
             <DevCard 
@@ -22,3 +22,5 @@ export default function InfoPage() {
         </section>
     );
 }
+
+export default InfoPage;

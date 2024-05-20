@@ -1,7 +1,7 @@
 import React from 'react';
 import { DeveloperCard } from "../utils/types"
 
-export default function DevCard({ avatar, name, info, url }: DeveloperCard) {
+function DevCard({ avatar, name, info, url }: DeveloperCard) {
   return (
     <div className="info-page__dev-card">
       <div className="dev-card__inner">
@@ -19,3 +19,5 @@ export default function DevCard({ avatar, name, info, url }: DeveloperCard) {
     </div>
   );
 }
+
+export default DevCard;

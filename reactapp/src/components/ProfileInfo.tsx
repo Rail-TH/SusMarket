@@ -3,7 +3,7 @@ import ProfileAvatar from '../assets/icons/profile-avatar.svg';
 import '../ProfileStyle.scss';
 import Cookies from "js-cookie";
 
-export default function ProfileInfo() {
+function ProfileInfo() {
     const userLogin = Cookies.get('user');
     
     return(
@@ -13,3 +13,5 @@ export default function ProfileInfo() {
         </div>
     )
 }
+
+export default ProfileInfo;

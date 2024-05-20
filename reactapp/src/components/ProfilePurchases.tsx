@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../ProfileStyle.scss';
 import ProfileInfo from "./ProfileInfo";
 
-export default function ProfilePurchases() {
+function ProfilePurchases() {
     return(
         <section className="purchases-section">
             <nav className="profile-page__nav">
@@ -23,3 +23,5 @@ export default function ProfilePurchases() {
         </section>
     )
 }
+
+export default ProfilePurchases

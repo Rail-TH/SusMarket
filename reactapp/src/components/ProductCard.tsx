@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Product } from "../utils/types";
 
-export default function ProductCard({ icons, title, price }: Product) {
+function ProductCard({ icons, title, price }: Product) {
     const priceAsString = price.toLocaleString('ru-RU');
     
     return(
@@ -23,3 +23,5 @@ export default function ProductCard({ icons, title, price }: Product) {
         </motion.article>
     )
 }
+
+export default ProductCard;

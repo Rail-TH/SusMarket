@@ -8,7 +8,7 @@ import ProfilePurchases from "../components/ProfilePurchases";
 import LogoutIcon from "../assets/icons/logout-icon.svg";
 import Cookies from "js-cookie";
 
-export default function ProfilePage() {
+function ProfilePage() {
     const navigate = useNavigate();
     
     const handleLogout = () => {
@@ -35,3 +35,5 @@ export default function ProfilePage() {
         </section>
     )
 }
+
+export default ProfilePage;

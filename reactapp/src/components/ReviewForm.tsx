@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../ProductStyle.scss';
 import ImageAttachIcon from "../assets/icons/review-form__add-image-icon.svg";
 import { motion } from 'framer-motion';
@@ -11,47 +11,47 @@ interface ReviewState {
     image?: string | ArrayBuffer | null;
 }
 
-export default function ReviewForm({ productId }: { productId: string }) {
-    const [review, setReview] = useState<ReviewState>({ text: '', rating: 1 }); // Состояние для отзыва
-    const [userId, setUserId] = useState<string | null>(null); // Состояние для ID пользователя
-    const [imageName, setImageName] = useState<string | null>(null); // Состояние для имени изображения
+function ReviewForm({ productId }: { productId: string }) {
+    const [review, setReview] = useState<ReviewState>({ text: '', rating: 1 });
+    const [userId, setUserId] = useState<string | null>(null);
+    const [imageName, setImageName] = useState<string | null>(null);
 
-    useEffect(() => { // Получение ID пользователя из cookie при инициализации компонента
+    useEffect(() => {
         const userIdFromCookie = Cookies.get('user_id');
         if (userIdFromCookie) {
             setUserId(userIdFromCookie);
         }
     }, []);
 
-    function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) { // Обработчик изменения текста отзыва
-        setReview({ ...review, text: event.target.value });
-    }
+    const handleTextChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setReview(prev => ({ ...prev, text: event.target.value }));
+    }, []);
 
-    function handleRatingChange(event: React.ChangeEvent<HTMLInputElement>) { // Обработчик изменения оценки отзыва
-        setReview({ ...review, rating: Number(event.target.value) });
-    }
+    const handleRatingChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        setReview(prev => ({ ...prev, rating: Number(event.target.value) }));
+    }, []);
 
-    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) { // Обработчик изменения изображения
+    const handleImageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
             setImageName(file.name);
 
             const reader = new FileReader();
             reader.onload = () => {
-                setReview({ ...review, image: reader.result });
+                setReview(prev => ({ ...prev, image: reader.result }));
             };
             reader.readAsDataURL(file);
         }
-    }
+    }, []);
 
-    async function handleSubmit(event: React.FormEvent) { // Обработчик отправки формы
+    const handleSubmit = useCallback(async (event: React.FormEvent) => {
         event.preventDefault();
         if (!userId) {
             console.error('ID пользователя не найден!');
             return;
         }
 
-        const baseUrl = window.location.origin; // Получаем текущий домен сайта
+        const baseUrl = window.location.origin;
 
         try {
             const params = new URLSearchParams();
@@ -73,13 +73,12 @@ export default function ReviewForm({ productId }: { productId: string }) {
         } catch (error) {
             console.error('Ошибка при отправке отзыва:', error);
         }
-    }
+    }, [review, userId, productId]);
 
     return (
         <form className='product-page__review-form' onSubmit={handleSubmit}>
             <h5 className='review-form__heading'>Оставить отзыв</h5>
             <div className="review-form__stars-container">
-                {/* Создание радиокнопок для выбора оценки */}
                 {[...Array(5)].map((_, index) => (
                     <input
                         key={index}
@@ -108,7 +107,6 @@ export default function ReviewForm({ productId }: { productId: string }) {
                 <input
                     className='review-form__image-input'
                     type="file"
-                    name="review image"
                     id="review-image"
                     accept='.png, .jpg, .jpeg'
                     onChange={handleImageChange}
@@ -124,5 +122,7 @@ export default function ReviewForm({ productId }: { productId: string }) {
                 Отправить отзыв
             </motion.button>
         </form>
-    )
+    );
 }
+
+export default ReviewForm;

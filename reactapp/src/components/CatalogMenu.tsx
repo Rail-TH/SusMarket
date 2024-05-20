@@ -7,7 +7,7 @@ interface CatalogMenuProps { // Пропсы, которые компонент 
   onSelectCategory: (category: Category | 'all') => void; // Функция для выбора категории
 }
 
-export default function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: CatalogMenuProps) {
+function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: CatalogMenuProps) {
   const [categories, setCategories] = useState<Category[]>([]); // Состояние для хранения категорий
 
   useEffect(() => { // При монтировании компонента запрашиваем категории с сервера
@@ -46,3 +46,5 @@ export default function CatalogMenu({ toggleCatalogMenu, onSelectCategory }: Cat
     </>
   );
 }
+
+export default CatalogMenu;

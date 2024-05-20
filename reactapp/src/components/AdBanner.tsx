@@ -1,8 +1,10 @@
 import React from "react";
 
-export default function Banner() {
+function Banner() {
     return(
         <div className="banner-div">
         </div>
     )
 }
+
+export default Banner;

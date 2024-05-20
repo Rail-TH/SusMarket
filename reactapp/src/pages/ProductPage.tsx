@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Product, Reviews } from '../utils/types';
 import Review from '../components/Review';
 import axios from 'axios';
@@ -7,67 +7,51 @@ import ShareIcon from "../assets/icons/share-icon.svg";
 import ReviewForm from '../components/ReviewForm';
 import { Link, useParams } from 'react-router-dom';
 
-export default function ProductPage() {
+function ProductPage() {
     const { id } = useParams(); // Получение id из URL-параметров
     
     // Состояние для продукта и рецензий
     const [product, setProduct] = useState<Product | null>(null);
     const [reviews, setReviews] = useState<Reviews[]>([]);
     
-    // Состояние для среднего рейтинга и флага для отслеживания получения данных
+    // Состояние для среднего рейтинга
     const [averageRating, setAverageRating] = useState<number>(0);
-    const [isDataFetched, setIsDataFetched] = useState(false);
     
-    const totalReviews = reviews.length; // Количество рецензий
+    const fetchProductAndReviews = useCallback(async () => {
+        try {
+            const baseUrl = window.location.origin;
+            const [productResponse, reviewsResponse] = await Promise.all([
+                axios.get(`${baseUrl}/api/get/products`),
+                axios.get(`${baseUrl}/api/get/reviews/${id}`)
+            ]);
 
-    const trimText = (text: string, limit: number): string => { // Функция для усечения текста
-        return text.length > limit ? text.substring(0, limit) + '...' : text;
-    };
+            const productData = productResponse.data.products.find((item: Product) => item.id.toString() === id);
+            setProduct(productData);
 
-    const countReviewsByRate = (rate: number): number => { // Функция для подсчета рецензий по рейтингу
-        return reviews.filter(review => review.rate === rate).length;
-    };
+            const reviewsData = reviewsResponse.data.review;
+            setReviews(reviewsData);
 
-    const percentageOfRate = (rate: number): number => { // Функция для вычисления процента рецензий по рейтингу
-        const count = countReviewsByRate(rate);
-        return (count / totalReviews) * 100;
-    };
-
-    useEffect(() => { // Получение продукта по его id
-        const baseUrl = window.location.origin; // Получаем текущий домен сайта
-        
-        axios.get(`${baseUrl}/api/get/products`)
-            .then(response => {
-                const productData = response.data.products.find(
-                    (item: Product) => item.id.toString() === id
-                );
-                setProduct(productData);
-            })
-            .catch(error => {
-                console.error('Ошибка при получении продукта:', error);
-            });
+            const totalRating = reviewsData.reduce((acc: number, review: Reviews) => acc + review.rate, 0);
+            setAverageRating(reviewsData.length > 0 ? totalRating / reviewsData.length : 0);
+        } catch (error) {
+            console.error('Ошибка при получении данных:', error);
+        }
     }, [id]);
 
-    useEffect(() => { // Получение рецензий по id продукта
-        if (!isDataFetched) {
-            const baseUrl = window.location.origin;
-            
-            axios.get(`${baseUrl}/api/get/reviews/${id}`)
-                .then(response => {
-                    const reviewsData = response.data.review;
-                    setReviews(reviewsData);
-                    const totalRating = reviewsData.reduce((acc: number, review: Reviews) => acc + review.rate, 0);
-                    const average = totalRating / reviewsData.length;
-                    setAverageRating(reviewsData.length > 0 ? average : 0);
-                    setIsDataFetched(true);
-                })
-                .catch(error => {
-                    console.error('Ошибка при получении рецензий:', error);
-                });
-        }
-    }, [id, isDataFetched]);
+    useEffect(() => {
+        fetchProductAndReviews();
+    }, [fetchProductAndReviews]);
 
-    if (!product) { // Отображение загрузки, если продукт не загружен
+    const trimText = (text: string, limit: number): string => 
+        text.length > limit ? text.substring(0, limit) + '...' : text;
+
+    const countReviewsByRate = useCallback((rate: number): number => 
+        reviews.filter(review => review.rate === rate).length, [reviews]);
+
+    const percentageOfRate = useCallback((rate: number): number => 
+        (countReviewsByRate(rate) / reviews.length) * 100, [countReviewsByRate, reviews.length]);
+
+    if (!product) {
         return <div>Загрузка...</div>;
     }
 
@@ -106,16 +90,12 @@ export default function ProductPage() {
                     <div className='rate-block__rating'>
                         <span className='rate-block__rate-number'>{averageRating.toFixed(1)}</span>
                         <div className="rate-block__star-rating">
-                            {/* Контейнер для отображения звезд, занимающий 100% ширины */}
                             <div className="star-rating__back-stars">
-                                {/* Отображение звезд, которые не должны быть закрашены */}
                                 {'★★★★★'.split('').map((star, i) => (
                                     <span key={`back-star-${i}`}>{star}</span>
                                 ))}
-                                {/* Контейнер для отображения звезд, которые должны быть закрашены */}
                                 <div className="star-rating__front-stars" 
                                     style={{ width: `${(averageRating / 5) * 100}%` }}>
-                                    {/* Отображение звезд, которые должны быть закрашены */}
                                     {'★★★★★'.split('').map((star, i) => (
                                         <span key={`front-star-${i}`}>{star}</span>
                                     ))}
@@ -144,3 +124,5 @@ export default function ProductPage() {
         </section>
     );
 }
+
+export default ProductPage;

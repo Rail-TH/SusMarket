@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreactapp=self.webpackChunkreactapp||[]).push([[503],{78:(a,c,s)=>{s.r(c),s.d(c,{default:()=>m});s(791);const e=s.p+"static/media/scam-image.c6c14289dc251ba2d2b1.png";var t=s(184);const m=function(){return(0,t.jsx)("section",{className:"scam-page",children:(0,t.jsx)("img",{src:e,alt:"scam mammoth",className:"scam-page__image"})})}}}]);
+//# sourceMappingURL=503.164b696e.chunk.js.map

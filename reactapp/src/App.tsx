@@ -1,59 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import HomePage from "./pages/HomePage";
-import PaymentPage from "./pages/PaymentPage";
-import ProductPage from "./pages/ProductPage";
-import ProfilePage from "./pages/ProfilePage";
-import ScamPage from "./pages/ScamPage";
-import InfoPage from "./pages/InfoPage";
 import Header from "./components/Header";
 import PopupMap from "./components/PopupMap";
 import { Product, Category } from "./utils/types";
 
-interface AppPopupMapState {
-    isPopupMapVisible: boolean;
-}
+// Lazy load pages for better performance
+const LazyHomePage = React.lazy(() => import("./pages/HomePage"));
+const LazyPaymentPage = React.lazy(() => import("./pages/PaymentPage"));
+const LazyProductPage = React.lazy(() => import("./pages/ProductPage"));
+const LazyProfilePage = React.lazy(() => import("./pages/ProfilePage"));
+const LazyScamPage = React.lazy(() => import("./pages/ScamPage"));
+const LazyInfoPage = React.lazy(() => import("./pages/InfoPage"));
 
 export default function App() {
-    const [state, setState] = useState<AppPopupMapState>({ isPopupMapVisible: false });
+    const [isPopupMapVisible, setIsPopupMapVisible] = useState(false);
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/get/products')
-            .then(response => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/get/products');
                 setProducts(response.data.products);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching the products:', error);
-            });
+            }
+        };
+        fetchProducts();
     }, []);
 
-    const togglePopupMap = () => {
-        setState(prevState => {
-            if (!prevState.isPopupMapVisible) {
-                document.body.classList.add('no-scroll');
-            } else {
-                document.body.classList.remove('no-scroll');
-            }
-            return { ...prevState, isPopupMapVisible: !prevState.isPopupMapVisible };
+    const togglePopupMap = useCallback(() => {
+        setIsPopupMapVisible(prevState => {
+            document.body.classList.toggle('no-scroll', !prevState);
+            return !prevState;
         });
-    };
+    }, []);
 
-    const handleSearchChange = (query: string) => {
+    const handleSearchChange = useCallback((query: string) => {
         setSearchQuery(query);
-    };
+    }, []);
 
-    const filteredProducts = products.filter(product =>
+    const filteredProducts = useMemo(() => products.filter(product =>
         (selectedCategory === 'all' || product.category_id === selectedCategory.id) &&
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    ), [products, selectedCategory, searchQuery]);
 
-    const handleSelectCategory = (category: Category | 'all') => {
+    const handleSelectCategory = useCallback((category: Category | 'all') => {
         setSelectedCategory(category);
-    };
+    }, []);
 
     return (
         <>
@@ -62,16 +58,18 @@ export default function App() {
                 onSelectCategory={handleSelectCategory} 
                 onSearchChange={handleSearchChange}
             />
-            {state.isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap} />}
+            {isPopupMapVisible && <PopupMap togglePopupMap={togglePopupMap} />}
             <main className="main">
-                <Routes>
-                    <Route path="/" element={<HomePage products={filteredProducts} />} />
-                    <Route path="profile/*" element={<ProfilePage />} />
-                    <Route path="product/:id" element={<ProductPage />} />
-                    <Route path="payment" element={<PaymentPage />} />
-                    <Route path="scam" element={<ScamPage />} />
-                    <Route path="info" element={<InfoPage />} />
-                </Routes>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                    <Routes>
+                        <Route path="/" element={<LazyHomePage products={filteredProducts} />} />
+                        <Route path="profile/*" element={<LazyProfilePage />} />
+                        <Route path="product/:id" element={<LazyProductPage />} />
+                        <Route path="payment" element={<LazyPaymentPage />} />
+                        <Route path="scam" element={<LazyScamPage />} />
+                        <Route path="info" element={<LazyInfoPage />} />
+                    </Routes>
+                </React.Suspense>
             </main>
         </>
     );

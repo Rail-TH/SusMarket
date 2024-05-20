@@ -1,64 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-interface LoginMenuProps { // Интерфейс для пропсов компонента LoginMenu
-  toggleLoginMenu: () => void; // Функция для переключения видимости меню входа
+interface LoginMenuProps {
+  toggleLoginMenu: () => void;
 }
 
-export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps) {
-  const [isLoginMode, setIsLoginMode] = useState(true); // Состояние для определения режима входа или регистрации
-  const [login, setLogin] = useState(''); // Состояние для хранения введенного логина
-  const [password, setPassword] = useState(''); // Состояние для хранения введенного пароля
-  const navigate = useNavigate(); // Функция для навигации
+function LoginMenu({ toggleLoginMenu }: LoginMenuProps) {
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const toggleMode = () => setIsLoginMode(!isLoginMode); // Функция для переключения режима входа или регистрации
+  const toggleMode = useCallback(() => setIsLoginMode(prev => !prev), []);
 
-  const handleClose = () => { // Функция для закрытия меню входа
-    document.body.classList.remove('no-scroll'); // Удаление класса "no-scroll" с тела документа
-    toggleLoginMenu(); // Вызов функции переключения видимости меню входа
-  };
+  const handleClose = useCallback(() => {
+    document.body.classList.remove('no-scroll');
+    toggleLoginMenu();
+  }, [toggleLoginMenu]);
 
-  useEffect(() => { // Эффект для добавления класса "no-scroll" с тела документа при монтировании компонента
+  useEffect(() => {
     document.body.classList.add('no-scroll');
     return () => {
       document.body.classList.remove('no-scroll');
     };
   }, []);
 
-  const handleAuth = async (isRegistering: boolean) => { // Функция для обработки авторизации
-    const baseUrl = window.location.origin; // Получаем текущий домен сайта
-    
-    try {
-      let response;
-      if (isRegistering) {
-        response = await axios.get(
-          `${baseUrl}/api/post/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
-        );
-      } else {
-        response = await axios.get(
-          `${baseUrl}/api/get/user?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
-        );
-        if (response.data.user.length === 0) {
-          alert('Пользователь не найден.');
-          return;
-        }
-      }
+  const handleAuth = async (isRegistering: boolean) => {
+    const baseUrl = window.location.origin;
 
-      if (response.status === 200) {
-        Cookies.set('user', login, { expires: 1 }); // Установка куки с логином
-        Cookies.set('user_id', response.data.user[0].id, { expires: 1 }); // Установка куки с ID пользователя
-        navigate('/profile'); // Переход на страницу профиля
-        toggleLoginMenu(); // Вызов функции переключения видимости меню входа
+    try {
+      const endpoint = isRegistering
+        ? `${baseUrl}/api/post/user`
+        : `${baseUrl}/api/get/user`;
+
+      const params = new URLSearchParams({
+        login: encodeURIComponent(login),
+        password: encodeURIComponent(password),
+      });
+
+      const response = await axios.get(`${endpoint}?${params.toString()}`);
+
+      if (isRegistering || (response.data.user && response.data.user.length > 0)) {
+        Cookies.set('user', login, { expires: 1 });
+        Cookies.set('user_id', response.data.user[0].id, { expires: 1 });
+        navigate('/profile');
+        toggleLoginMenu();
+      } else {
+        alert('Пользователь не найден.');
       }
     } catch (error) {
       alert('Ошибка при авторизации: ' + error);
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { // Функция для обработки отправки формы
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await handleAuth(!isLoginMode);
   };
@@ -115,3 +113,5 @@ export default function LoginMenu({ toggleLoginMenu }: LoginMenuProps) {
     </>
   );
 }
+
+export default LoginMenu;

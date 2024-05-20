@@ -9,7 +9,7 @@ type HomePageProps = {
     products: Product[];
 }
 
-export default function HomePage({ products }: HomePageProps) {
+function HomePage({ products }: HomePageProps) {
     return(
         <section className="home-page">
             <Banner />
@@ -31,3 +31,5 @@ export default function HomePage({ products }: HomePageProps) {
         </section>
     );
 }
+
+export default HomePage;
