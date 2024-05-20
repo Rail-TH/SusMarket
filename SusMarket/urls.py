@@ -20,5 +20,6 @@ from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("SusMarketBackend.urls"))
+    path('', include("SusMarketBackend.urls")),
+    path(r'favicon.ico', RedirectView.as_view(url='/static/media/favicon.ico')),
 ]
