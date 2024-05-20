@@ -69,6 +69,7 @@ export default function ReviewForm({ productId }: { productId: string }) {
                 }
             });
             alert("Отзыв успешно отправлен!");
+            window.location.reload();
         } catch (error) {
             console.error('Ошибка при отправке отзыва:', error);
         }
