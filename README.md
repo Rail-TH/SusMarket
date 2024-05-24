@@ -28,31 +28,47 @@
 
 <h2 id="howtostart">🚀 How to start?</h2>
 
-1. git clone https://github.com/Rail-TH/SusMarket.git
+<h3>1.</h3>
 
-2. npm i
+```
+git clone https://github.com/Rail-TH/SusMarket.git
+```
 
-3. each of these libraries is required for the project to work
+<h3>2.</h3>
 
-asgiref==3.7.2
-Django==4.1
-django-cors-headers==4.3.1
-djangorestframework==3.14.0
-pillow==10.3.0
-pytz==2023.4
-sqlparse==0.4.4
-typing_extensions==4.9.0
-tzdata==2023.4
+```
+npm i
+```
 
-install each of them using command pip install ...
-For example, pip install asgiref==3.7.2
+<h3>3.</h3>
+each of these libraries is required for the project to work
 
-4. python manage.py makemigrations
+- asgiref==3.7.2
+- Django==4.1
+- django-cors-headers==4.3.1
+- djangorestframework==3.14.0
+- pillow==10.3.0
+- pytz==2023.4
+- sqlparse==0.4.4
+- typing_extensions==4.9.0
+- tzdata==2023.4
 
-5. python manage.py migrate
-
-6. python manage.py runserver
- 
+install each of them using command
+```
+pip install package-name==version
+```
+4. 
+```
+python manage.py makemigrations
+```
+5. 
+```
+python manage.py migrate
+```
+6. 
+```
+python manage.py runserver
+```
 <h2 id="colab">🤝 Collaborators</h2>
 
 <p>Special thank you for all people that contributed for this project.</p>
