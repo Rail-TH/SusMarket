@@ -5,6 +5,7 @@
 <p align="center">
 <a href="#tech">Technologies</a>
 <a href="#colab">Collaborators</a>
+<a href="#howtostart">How to start</a>
 </p>
 
 
@@ -24,6 +25,33 @@
 - sass(scss)
 - methodology БЭМ
 - other npm packages (framer-motion, axios, react-router-dom, ...)
+
+<h2 id="howtostart">🚀 How to start?</h2>
+
+1. git clone https://github.com/Rail-TH/SusMarket.git
+
+2. npm i
+
+3. each of these libraries is required for the project to work
+
+asgiref==3.7.2
+Django==4.1
+django-cors-headers==4.3.1
+djangorestframework==3.14.0
+pillow==10.3.0
+pytz==2023.4
+sqlparse==0.4.4
+typing_extensions==4.9.0
+tzdata==2023.4
+
+install each of them using command pip install ...
+For example, pip install asgiref==3.7.2
+
+4. python manage.py makemigrations
+
+5. python manage.py migrate
+
+6. python manage.py runserver
  
 <h2 id="colab">🤝 Collaborators</h2>
 
