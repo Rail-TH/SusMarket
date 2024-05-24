@@ -21,13 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s-%!9lh6x^5co=ff@oa2tv2yyx5a^b&4(6#4icyswignggc4cf'
+SECRET_KEY = ''
+# Are u dumb? 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# Debug in prod? So strong...
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["SusMarket.ru"]
+# or ur url
 
 # Application definition
 
@@ -62,6 +64,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+# CORS in this project is exellent!
 
 ROOT_URLCONF = 'SusMarket.urls'
 
