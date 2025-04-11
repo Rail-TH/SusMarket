@@ -1,20 +1,20 @@
 $background-color: #252422;
-$main-color: #CCC5B9;
-$accent-color: #EB5E28;
+$main-color: #ccc5b9;
+$accent-color: #eb5e28;
 
 .home-page {
-    width: 96%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	width: 96%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-    .products-div {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 260px);
-        justify-content: space-between;
-        flex-flow: wrap;
-        padding-top: 36px;
-    }
+	.products-div {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, 260px);
+		justify-content: space-between;
+		flex-flow: wrap;
+		padding-top: 36px;
+	}
 }
